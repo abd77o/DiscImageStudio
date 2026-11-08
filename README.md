@@ -1,6 +1,3 @@
-<img width="954" height="1272" alt="1000022718" src="https://github.com/user-attachments/assets/9f982265-293d-461e-b9e2-bacc38a8bc6e" />
-<img width="1376" height="768" alt="1000022721" src="https://github.com/user-attachments/assets/ccdf68b4-4f76-4b6a-90b5-9d49e84868c1" />
-<img width="992" height="1056" alt="1000022722" src="https://github.com/user-attachments/assets/1f3b8717-60be-4b70-a76f-0728c505f50b" />
 # 💿 7Disc Image Studio Suite
 
 
@@ -33,7 +30,20 @@
   * **أداء معزز:** استغلال كامل لقدرات المعالجات متعددة الأنوية لتسريع عمليات المعالجة والحرق.
 
 ---
+<img width="954" height="1272" alt="1000022718" src="https://github.com/user-attachments/assets/9f982265-293d-461e-b9e2-bacc38a8bc6e" />
 
+
+
+
+<img width="992" height="1056" alt="1000022722" src="https://github.com/user-attachments/assets/1f3b8717-60be-4b70-a76f-0728c505f50b" />
+
+
+
+
+
+
+
+<img width="1376" height="768" alt="1000022721" src="https://github.com/user-attachments/assets/ccdf68b4-4f76-4b6a-90b5-9d49e84868c1" />
 ## 💻 متطلبات التشغيل (System Requirements)
 
 | الميزة | 7DiscImageStudio (النسخة الكلاسيكية) | DiscImageStudio (النسخة الحديثة) |
