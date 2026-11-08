@@ -1,7 +1,5 @@
 # 💿 7Disc Image Studio Suite
 
-[![License: MIT](https://shields.io)](https://opensource.org)
-[![Windows Support](https://shields.io)](https://microsoft.com)
 
 > **"لأن الأجهزة القديمة لا تستحق الموت، ولأن العتاد الكلاسيكي يحمل روح التكنولوجيا الحقيقية، أعدنا إحياء محركات الأقراص بكفاءة لا مثيل لها."**
 
