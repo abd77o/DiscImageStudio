@@ -1,15 +1,81 @@
-# DiscImageStudio (working title)
+# 💿 7Disc Image Studio Suite
 
-src/core/    DiscGeometry  ImageSource(BMP stream)  ImageLoader(PNG/JPG via stb)  PolarDitherEngine
-             Config(config.ini)  PlatformFile(UTF-8 paths)
-src/burn/    Scrambler  SectorComposer  SectorSource  Mmc  CueSheet  SafeBufferMonitor
-             RawDaoWriter  ScsiDevice  SptiDevice(Windows)
-src/calib/   CalibrationSource (ladder / alternating blocks)
-src/gui/     BurnJob(worker thread)  App(ImGui UI)  main_win(Win32+D3D9)  Dialogs
-tests/       mock-drive tests (run on any OS) + shims used only for syntax checks
-third_party/ stb_image.h and Dear ImGui go here - see third_party/README.md
+[![License: MIT](https://shields.io)](https://opensource.org)
+[![Windows Support](https://shields.io)](https://microsoft.com)
 
-Build (Windows 7 target, one static exe):  build_vs2017.bat
-Tests (any OS):  cmake -S . -B b && cmake --build b && b/test_burn_logic && b/test_gui_logic && b/test_image_burn <file.bmp>
+> **"لأن الأجهزة القديمة لا تستحق الموت، ولأن العتاد الكلاسيكي يحمل روح التكنولوجيا الحقيقية، أعدنا إحياء محركات الأقراص بكفاءة لا مثيل لها."**
 
-Run as Administrator. First hardware test: CD-RW or a spare CD-R with the test-write box ticked.
+مجموعة أدوات احترافية خفيفة الوزن للغاية ومخصصة للتعامل مع الأقراص المدمجة (CD/DVD)، الحرق، ورسم اللوحات الفنية (Disc Etching) على طيف الأسطوانة. تم تصميمها وهندستها بذكاء لتعمل بكفاءة خارقة على الأجهزة الضعيفة والميتة (Potato PCs) التي تتجاهلها البرمجيات الحديثة، مع تقديم نسخة متطورة للأنظمة المعاصرة.
+
+---
+
+## ✨ فلسفة المشروع: بعث الحياة في العتاد المنسي
+في العصر الرقمي الحالي، تسابقت شركات البرمجيات في التخلي عن الأنظمة القديمة مثل **Windows 7** واستهلاك موارد الأجهزة بشكل جنوني، متناسين أن الأجهزة الكلاسيكية والضعيفة هي صاحبة الإرث الحقيقي والأكثر احتواءً واستخداماً لمحركات الأقراص (CD/DVD ROM). 
+
+هنا يأتي دور **7Disc Image Studio** ليثبت أن الكود البرمجي الذكي والمحسن يمكنه صنع المعجزات. لقد قمنا بتطوير أداة لا تستهلك الذاكرة أو المعالج، لتعطيك تحكماً كاملاً وسرعة استجابة مذهلة حتى لو كنت تعمل على جهاز من العقد الماضي. نحن لا نقدم مجرد برنامج حرق؛ نحن نقدم طوق نجاة وأداة إبداعية تعيد القيمة لأجهزتك وأسطواناتك القديمة!
+
+---
+
+## 🛠️ محتويات المجموعة (The Suite)
+
+### 1️⃣ 7DiscImageStudio (الإصدار الكلاسيكي الخارق)
+* **الجمهور المستهدف:** الأجهزة الضعيفة جداً، الحواسيب الميتة، وأنظمة Windows XP / 7 / 8.
+* **المميزات الاستثنائية:**
+  * **استهلاك صفري تقريباً:** أداء فائق السرعة دون أي عبء على معالجك أو الذاكرة العشوائية (RAM).
+  * **استقرار مطلق:** خوارزميات حرق ذكية تحمي أسطواناتك من التلف أثناء عملية الكتابة.
+  * **الرسم الطيفي:** إمكانية حفر ورسم تصاميم وصور مذهلة (مثل شخصيات الأنمي واللوحات الفنية) مباشرة على طيف الأسطوانة.
+
+### 2️⃣ DiscImageStudio (الإصدار الحديث المتطور)
+* **الجمهور المستهدف:** الأنظمة الحديثة والأجهزة المتوسطة فما فوق (Windows 10 / 11).
+* **المميزات الاستثنائية:**
+  * **واجهة عصرية (Modern UI):** تصميم أنيق ومستقبلي يدعم الوضع الداكن المريح للعين.
+  * **أداء معزز:** استغلال كامل لقدرات المعالجات متعددة الأنوية لتسريع عمليات المعالجة والحرق.
+
+---
+
+## 💻 متطلبات التشغيل (System Requirements)
+
+| الميزة | 7DiscImageStudio (النسخة الكلاسيكية) | DiscImageStudio (النسخة الحديثة) |
+| :--- | :--- | :--- |
+| **نظام التشغيل** | Windows XP / 7 / 8 | Windows 10 / 11 |
+| **المعالج (CPU)**| Pentium 4 أو أي معالج ضعيف | Dual-Core فما فوق |
+| **الرام (RAM)**  | 512 MB أو أقل | 2 GB فما فوق |
+| **المساحة**      | أقل من 20 ميجابايت | أقل من 50 ميجابايت |
+
+---
+
+## 📥 التحميل (Download)
+يمكنك تحميل النسخ الجاهزة للتشغيل مباشرة كملفات (Portable EXE) دون الحاجة لتثبيت معقد:
+👉 **[اضغط هنا للانتقال لصفحة التحميل والنسخ الجاهزة (Releases)](https://github.com)**
+
+---
+
+## 🛠️ البناء من الكود المصدري (How to Build)
+إذا كنت مطوراً وتريد المساهمة في تحسين هذا المشروع الإنساني والتكنولوجي:
+1. قم بعمل Clone للمستودع:
+   ```bash
+   git clone https://github.com
+   ```
+2. افتح المجلد الخاص بالنسخة التي تريدها (`src` للنسخة الكلاسيكية أو `src_advanced` للنسخة الحديثة).
+3. قم ببناء المشروع باستخدام بيئة التطوير الخاصة بك.
+
+---
+
+## 🤝 المساهمة (Contributing)
+نرحب جداً بمساهمات المطورين لجعل الأداة أكثر خفة وقوة!
+1. قم بعمل Fork للمشروع.
+2. أنشئ فرعاً جديداً (`git checkout -b feature/AmazingFeature`).
+3. ارفع تغييراتك وافتح Pull Request.
+
+---
+
+## 📄 رخصة الاستخدام (License)
+هذا المشروع مفتوح المصدر بالكامل ومتاح بموجب رخصة **MIT** - راجع ملف [LICENSE](LICENSE) لمزيد من التفاصيل.
+
+---
+
+## 📞 التواصل والدعم
+نحن نسعد بسماع آرائكم واقتراحاتكم لتطوير الأداة:
+- **حساب جيت هب:** [@abd77o](https://github.com)
+- **البريد الإلكتروني:** [poi99poin@gmail.com](mailto:poi99poin@gmail.com)
+- **البلاغات والاقتراحات:** يمكنك فتح [Issue جديدة](https://github.com/7DiscImageStudio/issues) مباشرة.
