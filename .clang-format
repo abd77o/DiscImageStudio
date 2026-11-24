@@ -1,0 +1,26 @@
+# DiscImageStudio code style. Matches what is already in the tree; keep the diff small.
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: c++11
+
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+
+AccessModifierOffset: -4
+AlignAfterOpenBracket: Align
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortCaseLabelsOnASingleLine: true
+BreakBeforeBraces: Attach
+PointerAlignment: Left
+SpaceAfterCStyleCast: false
+IndentCaseLabels: true
+SortIncludes: false
+FixNamespaceComments: true
+MaxEmptyLinesToKeep: 1
+
+# The sparse "key = value" blocks in config structs read better unaligned.
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false

@@ -1,0 +1,11 @@
+* text=auto
+*.bat text eol=crlf
+*.sh  text eol=lf
+
+# keep binary artifacts binary and images diffable as binary
+*.png binary
+*.jpg binary
+*.bmp binary
+*.pgm binary
+*.exe binary
+*.zip binary

@@ -1,0 +1,47 @@
+# ---- build output -----------------------------------------------------------------------
+build/
+build-*/
+b/
+out/
+dist/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+*.obj
+*.o
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.exp
+*.idb
+*.tlog
+*.log
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# ---- test scratch files -----------------------------------------------------------------
+dis_test_config.ini
+dis_junk.bin
+ci-pattern.bmp
+ci-disc.pgm
+*.pgm
+!docs/images/*.pgm
+
+# ---- runtime settings (next to the exe) --------------------------------------------------
+config.ini
+
+# ---- third-party sources are fetched by scripts/fetch_deps, never committed --------------
+third_party/imgui/*
+third_party/stb/*
+!third_party/README.md
+
+# ---- OS noise ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini

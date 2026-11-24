@@ -1,0 +1,53 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "windows-x86",
+      "displayName": "Windows x86 (static CRT, Win7-compatible toolset)",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Release;RelWithDebInfo;Debug"
+      },
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" }
+    },
+    {
+      "name": "windows-x64",
+      "displayName": "Windows x64",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-x64",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" }
+    },
+    {
+      "name": "linux-tests",
+      "displayName": "Linux/macOS: core + tests (no GUI, no burner)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "DIS_BUILD_TESTS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "windows-release", "configurePreset": "windows-x86", "configuration": "Release" },
+    { "name": "windows-x64-release", "configurePreset": "windows-x64", "configuration": "Release" },
+    { "name": "linux-tests", "configurePreset": "linux-tests" }
+  ],
+  "testPresets": [
+    {
+      "name": "linux-tests",
+      "configurePreset": "linux-tests",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "windows-release",
+      "configurePreset": "windows-x86",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}

@@ -1,7 +1,16 @@
 cmake_minimum_required(VERSION 3.5)
-project(DiscImageStudio CXX)
+project(DiscImageStudio VERSION 0.1.0 LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+option(DIS_BUILD_TESTS "Build the hardware-free test executables" ON)
+option(DIS_BUILD_TOOLS "Build the headless tools (dither_preview)" ON)
+
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
 
 set(STB_DIR   ${CMAKE_SOURCE_DIR}/third_party/stb)
 set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/third_party/imgui)
@@ -44,16 +53,29 @@ if(Threads_FOUND)
   target_link_libraries(dis_burn ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
-add_executable(dither_preview tools/dither_preview.cpp)
-target_link_libraries(dither_preview dis_core)
+if(DIS_BUILD_TOOLS)
+  add_executable(dither_preview tools/dither_preview.cpp)
+  target_link_libraries(dither_preview dis_core)
+endif()
 
 # ---- hardware-free tests (mock drive) ---------------------------------------------------
-add_executable(test_burn_logic tests/test_burn_logic.cpp)
-target_link_libraries(test_burn_logic dis_burn)
-add_executable(test_image_burn tests/test_image_burn.cpp)
-target_link_libraries(test_image_burn dis_burn)
-add_executable(test_gui_logic tests/test_gui_logic.cpp)
-target_link_libraries(test_gui_logic dis_burn)
+if(DIS_BUILD_TESTS)
+  enable_testing()
+  add_executable(test_burn_logic tests/test_burn_logic.cpp)
+  target_link_libraries(test_burn_logic dis_burn)
+  add_executable(test_image_burn tests/test_image_burn.cpp)
+  target_link_libraries(test_image_burn dis_burn)
+  add_executable(test_gui_logic tests/test_gui_logic.cpp)
+  target_link_libraries(test_gui_logic dis_burn)
+
+  # test_image_burn needs a BMP argument, so it is driven by ctest only when one is supplied:
+  #   cmake -S . -B build -DDIS_TEST_IMAGE=path/to/image.bmp
+  add_test(NAME burn_logic COMMAND test_burn_logic)
+  add_test(NAME gui_logic  COMMAND test_gui_logic)
+  if(DIS_TEST_IMAGE)
+    add_test(NAME image_burn COMMAND test_image_burn ${DIS_TEST_IMAGE})
+  endif()
+endif()
 
 # ---- GUI (Windows only, needs third_party/imgui) -----------------------------------------
 if(WIN32)
