@@ -13,7 +13,7 @@ jobs:
     name: build and publish x86 binary
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Fetch Dear ImGui + stb_image
         shell: cmd

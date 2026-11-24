@@ -28,7 +28,7 @@ jobs:
             cc: clang
             cxx: clang++
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Fetch stb_image (PNG/JPEG support)
         run: scripts/fetch_deps.sh
@@ -69,7 +69,7 @@ jobs:
     name: windows build (x86, static CRT)
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Fetch Dear ImGui + stb_image
         shell: cmd
