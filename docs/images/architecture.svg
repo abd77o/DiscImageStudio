@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" width="1180" height="560" role="img" aria-label="DiscImageStudio data flow: image, streaming gray raster, polar dither engine, sector composer, raw DAO writer, CD drive">
+  <defs>
+    <linearGradient id="abg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0e141b"/><stop offset="1" stop-color="#111a23"/>
+    </linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5ee0ff"/>
+    </marker>
+    <style>
+      .box  { fill:#16202b; stroke:#2b4356; stroke-width:1.5; rx:10; }
+      .t    { font-family:'Segoe UI',Arial,sans-serif; font-size:19px; font-weight:700; fill:#eaf6ff; }
+      .s    { font-family:'Segoe UI',Arial,sans-serif; font-size:14px; fill:#8aa4b8; }
+      .c    { font-family:'Consolas',monospace; font-size:14px; fill:#7fd4f0; }
+      .lbl  { font-family:'Segoe UI',Arial,sans-serif; font-size:13px; font-weight:700; fill:#5ee0ff; letter-spacing:1px; }
+      .flow { stroke:#5ee0ff; stroke-width:2; fill:none; marker-end:url(#arw); }
+      .aux  { stroke:#3d6a80; stroke-width:1.6; stroke-dasharray:6 5; fill:none; marker-end:url(#arw); }
+    </style>
+  </defs>
+
+  <rect width="1180" height="560" fill="url(#abg)"/>
+
+  <text x="40" y="48" class="lbl">PIPELINE</text>
+
+  <!-- row 1 -->
+  <rect class="box" x="40"  y="70" width="230" height="92"/>
+  <text x="60" y="104" class="t">Image file</text>
+  <text x="60" y="128" class="s">PNG / JPEG (stb) or BMP</text>
+  <text x="60" y="148" class="c">streamed row by row</text>
+
+  <rect class="box" x="330" y="70" width="250" height="92"/>
+  <text x="350" y="104" class="t">ImageSource</text>
+  <text x="350" y="128" class="s">box-filter to a small square</text>
+  <text x="350" y="148" class="c">GrayRaster 8-bit &lt;=1 MB</text>
+
+  <rect class="box" x="640" y="70" width="270" height="92"/>
+  <text x="660" y="104" class="t">PolarDitherEngine</text>
+  <text x="660" y="128" class="s">error diffusion along the spiral</text>
+  <text x="660" y="148" class="c">Floyd-Steinberg / JJN</text>
+
+  <rect class="box" x="970" y="70" width="170" height="92"/>
+  <text x="990" y="104" class="t">Tones</text>
+  <text x="990" y="128" class="s">2..8 levels per cell</text>
+  <text x="990" y="148" class="c">ring buffer</text>
+
+  <path class="flow" d="M270 116 H322"/>
+  <path class="flow" d="M580 116 H632"/>
+  <path class="flow" d="M910 116 H962"/>
+
+  <!-- row 2 -->
+  <rect class="box" x="640" y="240" width="270" height="92"/>
+  <text x="660" y="274" class="t">SectorComposer</text>
+  <text x="660" y="298" class="s">tone to raw 2352-byte sector</text>
+  <text x="660" y="318" class="c">Audio DAO / Mode-1 + scramble</text>
+
+  <rect class="box" x="330" y="240" width="250" height="92"/>
+  <text x="350" y="274" class="t">RawDaoWriter</text>
+  <text x="350" y="298" class="s">SEND CUE SHEET + WRITE(10)</text>
+  <text x="350" y="318" class="c">Disc-At-Once, LBA -150</text>
+
+  <rect class="box" x="40" y="240" width="230" height="92"/>
+  <text x="60" y="274" class="t">CD drive</text>
+  <text x="60" y="298" class="s">SPTI / SCSI pass-through</text>
+  <text x="60" y="318" class="c">CIRC + EFM encoder</text>
+
+  <path class="flow" d="M775 162 V232"/>
+  <path class="flow" d="M632 286 H588"/>
+  <path class="flow" d="M330 286 H278"/>
+
+  <text x="792" y="205" class="s">cells -&gt; bytes</text>
+  <text x="596" y="278" class="s">SCSI</text>
+
+  <!-- aux blocks -->
+  <text x="40" y="404" class="lbl">SAFETY AND CALIBRATION</text>
+
+  <rect class="box" x="40" y="424" width="330" height="96"/>
+  <text x="60" y="456" class="t">SafeBufferMonitor</text>
+  <text x="60" y="480" class="s">READ BUFFER CAPACITY polling,</text>
+  <text x="60" y="500" class="s">adaptive batch size, speed advice</text>
+
+  <rect class="box" x="410" y="424" width="330" height="96"/>
+  <text x="430" y="456" class="t">CalibrationSource</text>
+  <text x="430" y="480" class="s">ladder / alternating test bands,</text>
+  <text x="430" y="500" class="s">picks light and dark byte pairs</text>
+
+  <rect class="box" x="780" y="424" width="360" height="96"/>
+  <text x="800" y="456" class="t">App + BurnJob (worker thread)</text>
+  <text x="800" y="480" class="s">Dear ImGui / Direct3D 9 UI, test-write</text>
+  <text x="800" y="500" class="s">lockout, progress, cancel</text>
+
+  <path class="aux" d="M370 448 H400"/>
+  <path class="aux" d="M740 448 H772"/>
+  <path class="aux" d="M700 336 C700 400 520 396 505 418"/>
+  <path class="aux" d="M205 424 C205 380 205 350 205 336"/>
+</svg>
