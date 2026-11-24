@@ -12,6 +12,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Automatic calibration (read the ladder back instead of choosing bands by eye)
 - Radial/tangential pre-compensation for CIRC smearing
 
+## [0.1.1] — 2026-11-24
+
+### Changed
+- README rewritten as a download-first page: a one-click `DiscImageStudio-win32.exe` button, a four-step
+  install guide, SHA256 verification and the project's own real-burn photography.
+- Releases now publish **automatically** on a tag and ship a **stable asset name**
+  (`DiscImageStudio-win32.exe`), so `releases/latest/download/DiscImageStudio-win32.exe` always works.
+- Removed the generated dither preview renders from `docs/images`; the gallery is now the author's real photos.
+
+### Fixed
+- Release workflow: the PowerShell packaging step failed on the runner. Assets are now staged with coreutils on
+  Git Bash and attached directly (executable + SHA256), with no zip step.
+
 ## [0.1.0] — 2026-11-24
 
 First public release. Experimental: the burn path is validated against a mock drive only.
@@ -35,5 +48,6 @@ First public release. Experimental: the burn path is validated against a mock dr
 - `tools/dither_preview`: headless renderer that paints each cell along its real spiral segment.
 - GitHub Actions CI (Linux tests on GCC and Clang, Windows GUI build and artifact) and dependency fetchers.
 
-[Unreleased]: https://github.com/abd77o/DiscImageStudio/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/abd77o/DiscImageStudio/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/abd77o/DiscImageStudio/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/abd77o/DiscImageStudio/releases/tag/v0.1.0

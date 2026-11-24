@@ -39,9 +39,12 @@ jobs:
           exe="build/Release/DiscImageStudio.exe"
           ls -l "$exe"
           mkdir -p dist
+          # stable name: releases/latest/download/DiscImageStudio-win32.exe keeps working forever
+          cp "$exe" "dist/DiscImageStudio-win32.exe"
           cp "$exe" "dist/DiscImageStudio-${tag}-win32.exe"
           cp README.md LICENSE docs/HARDWARE_NOTES.md dist/
-          ( cd dist && sha256sum "DiscImageStudio-${tag}-win32.exe" > "DiscImageStudio-${tag}-win32.exe.sha256" )
+          ( cd dist && sha256sum DiscImageStudio-win32.exe > DiscImageStudio-win32.exe.sha256
+            sha256sum "DiscImageStudio-${tag}-win32.exe" > "DiscImageStudio-${tag}-win32.exe.sha256" )
           echo "--- staged ---"
           ls -l dist
 
@@ -56,7 +59,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           name: 7Disc Image Studio ${{ github.ref_name }}
-          draft: true
+          draft: false
           generate_release_notes: true
           body: |
             **Experimental software.** It writes raw sectors to a CD-R and permanently destroys the disc.
@@ -67,6 +70,6 @@ jobs:
             * Verify the download with the `.sha256` file:
 
               ```bash
-              sha256sum -c DiscImageStudio-${{ github.ref_name }}-win32.exe.sha256
+              sha256sum -c DiscImageStudio-win32.exe.sha256
               ```
           files: dist/*
