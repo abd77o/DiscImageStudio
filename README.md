@@ -4,9 +4,9 @@
 
 # 7Disc Image Studio 💿
 
-### اسطوانتك بقت لوحة — مش ملصق، **حُفَر**.
+**حُفَر**   اسطوانتك بقت لوحة 
 
-**استوديو فني كامل بيستخدم ليزر الحارق كقلم رصاص، وبيحوّل صورة عادية لرسمة محفورة على ظهر الأسطوانة —
+**استوديو فني كامل بيستخدم ليزر الحارق كقلم رصاص، وبيحوّل صورة عادية لرسمة محفورة على ظهر الأسطوانة 
 بدون طابعة، بدون ملصقات، وبدون فلوس LightScribe.**
 
 [![Latest release](https://img.shields.io/github/v/release/abd77o/DiscImageStudio?label=release&color=2ea44f)](https://github.com/abd77o/DiscImageStudio/releases/latest)
