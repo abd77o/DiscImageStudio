@@ -7,6 +7,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Changed
+- `README.md` is now **English first** for an international C++ / SCSI / MMC audience, with the author's
+  real burned-disc photograph moved to the top of the page as the visual hook, and a prominent language
+  switcher at the very top.
+- The full Arabic documentation lives on unchanged in **`README.ar.md`**, with the same structure,
+  the author's tagline, and a link back to the English page.
+
 ### Planned
 - Real-hardware validation matrix and a bug-report template for burn results
 - Automatic calibration (read the ladder back instead of choosing bands by eye)
