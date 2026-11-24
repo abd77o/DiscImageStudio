@@ -13,8 +13,8 @@
 [![Downloads](https://img.shields.io/github/downloads/abd77o/DiscImageStudio/total?label=downloads&color=0969da)](https://github.com/abd77o/DiscImageStudio/releases)
 [![CI](https://github.com/abd77o/DiscImageStudio/actions/workflows/ci.yml/badge.svg)](https://github.com/abd77o/DiscImageStudio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%207%2F8%2F10%2F11%20(x86%2Fx64)-0078D4.svg)](#-التحميل-والتثبيت--download)
-[![No runtime deps](https://img.shields.io/badge/dependencies-zero-3fb950.svg)](#-الميزات--features)
+[![Platform](https://img.shields.io/badge/platform-Windows%207%2F8%2F10%2F11%20(x86%2Fx64)-0078D4.svg)](#download)
+[![No runtime deps](https://img.shields.io/badge/dependencies-zero-3fb950.svg)](#features)
 
 <br>
 
@@ -85,6 +85,8 @@
 
 ---
 
+<a id="features"></a>
+
 ## 🛠️ الميزات / Features
 
 - **محرك ديثرينج قطبي (Polar Dithering):** الصورة بتُقرأ على طول المسار الحلزوني الحقيقي (`r² = r₀² + p·s/π`)،
@@ -123,6 +125,8 @@
 تفاصيل أعمق في [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
+
+<a id="download"></a>
 
 ## ⬇️ التحميل والتثبيت / Download
 
