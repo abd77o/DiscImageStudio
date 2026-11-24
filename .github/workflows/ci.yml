@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  tests-linux:
+    name: tests (${{ matrix.compiler }}, release)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - compiler: gcc
+            cc: gcc
+            cxx: g++
+          - compiler: clang
+            cc: clang
+            cxx: clang++
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch stb_image (PNG/JPEG support)
+        run: scripts/fetch_deps.sh
+
+      - name: Configure
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -j"$(nproc)"
+
+      - name: Unit tests (mock drive, no hardware)
+        run: |
+          ./build/test_burn_logic
+          ./build/test_gui_logic
+
+      - name: End-to-end image burn on a mock drive (generated pattern, stdlib only)
+        run: |
+          python3 tests/make_test_pattern.py ci-pattern.bmp
+          ./build/test_image_burn ci-pattern.bmp
+
+      - name: Headless dither preview (smoke test)
+        run: ./build/dither_preview ci-pattern.bmp ci-disc.pgm 196 2 fs
+
+      - name: Upload preview artifact
+        if: matrix.compiler == 'gcc'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dither-preview
+          path: |
+            ci-disc.pgm
+            ci-pattern.bmp
+          retention-days: 7
+
+  build-windows:
+    name: windows build (x86, static CRT)
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Dear ImGui + stb_image
+        shell: cmd
+        run: scripts\fetch_deps.bat
+
+      - name: Configure
+        run: cmake -S . -B build -A Win32 -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release -j 2
+
+      - name: Tests (mock drive)
+        shell: cmd
+        run: |
+          build\Release\test_burn_logic.exe
+          build\Release\test_gui_logic.exe
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: DiscImageStudio-win32
+          path: build/Release/DiscImageStudio.exe
+          if-no-files-found: error
+          retention-days: 30

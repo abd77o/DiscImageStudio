@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-binary:
+    name: build and publish x86 binary
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Dear ImGui + stb_image
+        shell: cmd
+        run: scripts\fetch_deps.bat
+
+      - name: Configure (x86, static CRT)
+        run: cmake -S . -B build -A Win32 -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release -j 2
+
+      - name: Tests (mock drive)
+        shell: cmd
+        run: |
+          build\Release\test_burn_logic.exe
+          build\Release\test_gui_logic.exe
+
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item build/Release/DiscImageStudio.exe dist/
+          Copy-Item README.md LICENSE docs/HARDWARE_NOTES.md dist/
+          $tag = "${{ github.ref_name }}"
+          Compress-Archive -Path dist/* -DestinationPath "DiscImageStudio-$tag-win32.zip"
+          Get-FileHash "DiscImageStudio-$tag-win32.zip" -Algorithm SHA256 |
+            ForEach-Object { "$($_.Hash)  DiscImageStudio-$tag-win32.zip" } |
+            Set-Content "DiscImageStudio-$tag-win32.zip.sha256"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: DiscImageStudio ${{ github.ref_name }}
+          draft: true
+          generate_release_notes: true
+          body: |
+            **Experimental software.** It writes raw sectors to a CD-R and permanently destroys the disc.
+            Read `HARDWARE_NOTES.md` (included in the zip) before burning, and start with a CD-RW.
+
+            * Single 32-bit static executable, runs on Windows 7 x86/x64
+            * Burn path validated against a mock drive only — hardware reports are very welcome
+          files: |
+            DiscImageStudio-${{ github.ref_name }}-win32.zip
+            DiscImageStudio-${{ github.ref_name }}-win32.zip.sha256
