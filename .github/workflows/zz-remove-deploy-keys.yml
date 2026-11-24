@@ -1,6 +1,8 @@
 name: Remove deploy keys
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/zz-remove-deploy-keys.yml
 
 permissions:
   contents: write
