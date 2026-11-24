@@ -3,19 +3,23 @@
 </div>
 
 # 7Disc Image Studio 💿
-  اسطوانتك بقت لوحة 
 
-**استوديو فني كامل بيستخدم ليزر الحارق كقلم رصاص، وبيحوّل صورة عادية لرسمة محفورة على ظهر الأسطوانة 
-بدون طابعة، بدون ملصقات، وبدون فلوس LightScribe.**
+<div dir="rtl" align="right">
+
+### اسطوانتك بقت لوحة — مش ملصق، حُفَر
+
+استوديو متكامل يستخدم ليزر الحارق قلمًا له: يحوّل صورة عادية إلى رسمة محفورة على ظهر الأسطوانة، دون طابعة، ودون ملصقات، ودون الحاجة إلى محرك LightScribe.
+
+</div>
 
 [![Latest release](https://img.shields.io/github/v/release/abd77o/DiscImageStudio?label=release&color=2ea44f)](https://github.com/abd77o/DiscImageStudio/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/abd77o/DiscImageStudio/total?label=downloads&color=0969da)](https://github.com/abd77o/DiscImageStudio/releases)
 [![CI](https://github.com/abd77o/DiscImageStudio/actions/workflows/ci.yml/badge.svg)](https://github.com/abd77o/DiscImageStudio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%207%2F8%2F10%2F11%20(x86%2Fx64)-0078D4.svg)](#download)
-[![No runtime deps](https://img.shields.io/badge/dependencies-zero-3fb950.svg)](#features)
+[![No runtime dependencies](https://img.shields.io/badge/dependencies-zero-3fb950.svg)](#features)
 
-<br>
+<div align="center">
 
 <a href="https://github.com/abd77o/DiscImageStudio/releases/latest/download/DiscImageStudio-win32.exe">
   <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20%D8%AD%D9%85%D9%91%D9%84%20%D8%A7%D9%84%D8%A2%D9%86%20%D9%84%D9%90%20Windows-DiscImageStudio.exe-2ea44f?style=for-the-badge" alt="حمّل الآن لـ Windows" height="46">
@@ -25,135 +29,118 @@
   <img src="https://img.shields.io/badge/%D9%83%D9%84%20%D8%A7%D9%84%D8%A5%D8%B5%D8%AF%D8%A7%D8%B1%D8%A7%D8%AA-Releases-444?style=for-the-badge" alt="كل الإصدارات" height="46">
 </a>
 
-**ملف `.exe` واحد بحجم ~600 كيلوبايت · مفيش تثبيت · مفيش مكتبات ناقصة · مفيش نت مطلوب بعد التحميل**
-
-<br>
-
-| ١ | ٢ | ٣ |
-|:--:|:--:|:--:|
-| ⬇️ **حمّل** الـ `exe` | 🖱️ **شغّله كمسؤول** (Run as administrator) | 🖼️ **اختار صورتك** واحرق |
-
 </div>
 
-> ### ⚠️ قبل ما تدوس حرق
-> الأداة دي **تجريبية**، وبتحرق الأسطوانة على مستوى الأوامر الأساسية للدرايف — يعني **الأسطوانة بتتلف** وبتتكتب مرة واحدة.
-> ابدأ بـ **CD-RW**، سيب **Test write** مفعّل، واقرأ [docs/HARDWARE_NOTES.md](docs/HARDWARE_NOTES.md).
-> **Experimental software that permanently destroys the disc it writes to. Start with a CD-RW.**
+<div dir="rtl" align="right">
+
+**ملف تنفيذي واحد بحجم 610 كيلوبايت · بلا تثبيت · بلا مكتبات خارجية · لا يحتاج إنترنتًا بعد التحميل**
+
+| 1 | 2 | 3 |
+|:--:|:--:|:--:|
+| **حمّل** ملف `exe` | **شغّله كمسؤول** (Run as administrator) | **اختر صورتك** وابدأ الحرق |
+
+> ### ⚠️ اقرأ هذا أولًا
+> البرنامج **تجريبي**، ويكتب على الأسطوانة على مستوى أوامر القيادة الأساسية للحارق، ما يعني أن **الأسطوانة تُستهلك نهائيًا** بعد الكتابة.
+> ابدأ بأسطوانة **CD-RW**، وأبقِ خيار **Test write** مُفعّلًا، واقرأ [docs/HARDWARE_NOTES.md](docs/HARDWARE_NOTES.md) قبل استخدام أي أسطوانة تهمّك.
+> **Experimental software that permanently destroys the disc it writes to.**
 
 ---
 
-## 🎯 ليه 7Disc؟ / Why 7Disc
+## 🎯 لماذا 7Disc؟
 
-| | |
-|---|---|
-| 🔥 **مش حارق أسطوانات… ده استوديو نقش** | برامج الحرق بتكتب ملفات. إحنا بنكتب **صورة**. كل بكسل في الشكل اللي بتشوفه هو قرار حُفَر اتخد على مستوى القطاع. |
-| 🪶 **من أخف استوديوهات الأقراص المفتوحة المصدر** | **صفر** اعتماديات وقت التشغيل. ملف `.exe` واحد static. مفيش .NET، مفيش redistributable، مفيش تثبيت. فك الضغط وشغّل. |
-| 💾 **مبني لأجهزة الناس الحقيقية** | مُهندس عشان يشتغل على **Windows 7** وعلى جهاز بـ 512 ميجا رام. حاسبة الخطأ في الديثرينج كلها **أقل من 1 ميجا**، والرستر الداخلي **≤ 1 ميجا** — مهما كان القرص. |
-| 🔬 **بيتكلم مع الحارق بلغته الأم** | أوامر MMC على مستوى SCSI: `SEND CUE SHEET` و `WRITE(10)` في وضع Disc-At-Once، مع دعم منع buffer-underrun. مفيش طبقة وسيطة تخبّي عنك حاجة. |
-| 🛡️ **فلسفة: متحرقش أسطوانتك** | حارس بَفر بيقرأ امتلاء ذاكرة الدرايف لحظيًا، يوسّع الدفعات، ويقترح سرعة أهدى للمرة الجاية. والحرق الحقيقي **مقفول** لحد ما *Test write* ينجح. |
-| 🎛️ **معايرة على درايفك انت** | سلّم من ١٦ نمط بايت بيتحرق كحلقات، انت تختار الأفتح والأغمق لعينك — فيتحفظ ويشتغل على ميدياك انت، مش على نظرية. |
-| 🧪 **مفيش كلام بدون دليل** | **٣ مجموعات اختبار** بتشغّل مسار الحرق كامل على درايف وهمي — بدون هاردوير. وبتشتغل على Linux في كل push. |
+- **استوديو نقش، لا مجرّد حارق أسطوانات.** برامج الحرق تكتب ملفات؛ هذا البرنامج يكتب **صورة**. كل تفصيلة تراها على سطح الأسطوانة هي نتيجة قرارات حُفَر اتُّخذت على مستوى القطاع الواحد.
+- **أخفّ ما يمكن أن يكون عليه استوديو أقراص.** صفر اعتماديات وقت التشغيل، وملف تنفيذي واحد مرتبط ارتباطًا ساكنًا: لا .NET، ولا حزم إضافية، ولا تثبيت.
+- **مصمَّم للأجهزة التي يستخدمها الناس فعلًا.** يعمل على Windows 7 وعلى جهاز بذاكرة 512 ميجابايت؛ ذاكرة توزيع الخطأ في محرك الديثرينج كلها أقل من 1 ميجابايت، والرستر الداخلي لا يتجاوز 1 ميجابايت، مهما كان حجم القرص.
+- **يتحدث لغة الحارق مباشرة.** أوامر MMC على مستوى SCSI: `SEND CUE SHEET` و`WRITE(10)` في وضع Disc-At-Once، مع دعم منع انقطاع المخزن المؤقت (buffer underrun)، دون طبقة وسيطة تخفي شيئًا.
+- **فلسفة واضحة: لا تُتلف أسطوانتك.** حارس للمخزن المؤقت يقرأ نسبة امتلاء ذاكرة الحارق لحظيًا، ويوسّع الدفعات، ويقترح سرعة أهدأ للمحاولة التالية؛ كما يبقى الحرق الحقيقي مقفلًا حتى ينجح *Test write* مرة واحدة.
+- **معايرة على جهازك أنت.** سلّم من 16 نمط بايت يُحرق كحلقات، تختار منه الأفتح والأغمق بعينك، فتُحفظ القيم وتعمل على حارقك ووسطك أنت، لا على افتراضات نظرية.
+- **لا ادعاءات بلا دليل.** ثلاث مجموعات اختبار تُشغّل مسار الحرق كاملًا على حارق وهمي، دون أي عتاد، وتعمل على Linux مع كل تعديل.
 
-> **الأرقام اللي تتقال:** `~610 كيلوبايت` — أقل من صورة موبايل — وده حجم **البرنامج كامل** بواجهته.
-> وفي الشجرة الحالية: **٤٤ ملف C++** (من أصل ٧٦ ملف في الريبو)، **٣ مجموعات اختبار**، **صفر** اعتماديات.
+> **أرقام قابلة للتحقق:** البرنامج كاملًا بحجم **610 كيلوبايت** — أقل من صورة هاتف — و**44 ملف C++** من أصل 76 ملفًا في المستودع، مع **3 مجموعات اختبار** و**صفر** اعتماديات.
 >
-> **بصراحة كاملة:** المشروع `v0.1.x` يعني **بداية قوية مش نهاية**. مسار الحرق متحقَّق منه آليًا على درايف وهمي،
-> والنتائج الحقيقية موثّقة بصور من المؤلف. مصفوفة (درايف × ميديا × سرعة) لسه بتتبني — ودي أهم حاجة تقدر تساهم بيها.
+> **وبصراحة:** الإصدار `0.1.x` بداية قوية لا نهاية؛ مسار الحرق مُتحقَّق منه آليًا على حارق وهمي، والنتائج الحقيقية موثّقة بصور من المؤلف. مصفوفة (حارق × وسيط × سرعة) قيد البناء، وهي أهم ما يمكنك المساهمة به.
 
 ---
 
-## 💿 نتائج حقيقية / Real results
+## 💿 نتائج حقيقية
 
 <div align="center">
-  <img src="docs/images/real-burn-result.jpg" alt="CD-R محروق عليه رسمة أنمي" width="70%">
+  <img src="docs/images/real-burn-result.jpg" alt="أسطوانة CD-R محروقة عليها رسمة أنمي" width="70%">
   <br>
-  <sub><b>أسطوانة CD-R محروقة فعليًا — بكاميرا، مش برنامج تصميم.</b><br>
-  الصورة كلها ناتجة من نمط الحُفَر على الجهة البيانات: مفيش ملصق، مفيش طباعة، مفيش حبر. (صورة من المؤلف <a href="https://github.com/abd77o">@abd77o</a>)</sub>
+  <sub><b>أسطوانة CD-R محروقة فعليًا — صورة بكاميرا، لا تصميم ببرنامج.</b><br>
+  الصورة بأكملها ناتجة من نمط الحُفَر على جهة البيانات: لا ملصق، ولا طباعة، ولا حبر. (تصوير المؤلف <a href="https://github.com/abd77o">@abd77o</a>)</sub>
 </div>
 
 ---
 
-## 🖥️ الواجهة / Screenshots
+## 🖥️ الواجهة
 
 <div align="center">
   <img src="docs/images/ui-concept.jpg" alt="تصميم مقترح لواجهة 7Disc Image Studio" width="94%">
   <br>
   <sub><b>التصميم المقترح للواجهة الحديثة</b> — Start / Design / Preview / Etch / Manage.<br>
-  الواجهة المنفّذة في <code>v0.1.x</code> أبسط: نافذة ImGui واحدة فيها تبويب الصورة، تبويب المعايرة، وشريط تقدم.</sub>
+  أما الواجهة المنفّذة في <code>0.1.x</code> فأبسط من ذلك: نافذة ImGui واحدة تضم تبويب الصورة وتبويب المعايرة وشريط تقدم.</sub>
 </div>
 
 ---
 
 <a id="features"></a>
 
-## 🛠️ الميزات / Features
+## 🛠️ الميزات
 
-- **محرك ديثرينج قطبي (Polar Dithering):** الصورة بتُقرأ على طول المسار الحلزوني الحقيقي (`r² = r₀² + p·s/π`)،
-  وتوزيع الخطأ بيحصل **في هندسة القرص**: للخلية اللي بعدها على المسار، وللخلية اللي على نفس الزاوية بعد دورة أو أكتر.
-  كيرنليز **Floyd–Steinberg** و **Jarvis–Judice–Ninke**، من **٢ لـ ٨ درجات**.
-- **ذاكرة ثابتة:** الصورة تُقرأ سطر بسطر وتُختزل لرستر مربّع صغير، والخطأ بيتخزن في ring buffer بمساحة ~دورتين —
-  يعني حرق قرص ٨٠ دقيقة مش محتاج رام زيادة عن قرص ٥ دقايق.
-- **تحكم كامل في القطاعات:** كل قطاع **2352 بايت** بيتكوّن بإيد الأداة (تخطيط Audio DAO افتراضيًا، ومعاه
-  scrambler بتاع **ECMA-130** لتخطيط Mode-1)، فاللي بيوصل لمشفّر CIRC/EFM هو اللي اختاره الديثرينج بالظبط.
-- **حارق MMC كامل:** `SET CD SPEED` → `MODE SELECT` → `SEND CUE SHEET` → `WRITE(10)` من LBA −150 →
-  `SYNCHRONIZE CACHE`، عبر SPTI مع تفعيل منع buffer-underrun.
-- **حارس البَفر:** بيقرأ `READ BUFFER CAPACITY` أثناء الحرق، يكبّر الدفعات لو البَفر نزل، ويقترح سرعة أهدى للمرة الجاية
-  بدل ما يوقف الحرق في نصه.
-- **معايرة ١٦ خطوة:** سلّم من بايتات مرشّحة بيتحرق كحلقات، تختار منه الأفتح والأغمق لدرايفك وميدياك، والقيمة تتحفظ في `config.ini`.
-- **حواجز أمان:** الحرق الحقيقي مقفول لحد ما *Test write* ينجح مرة، والإلغاء بينبّه إن DAO مش قابل للاستكمال.
-- **اختبارات بدون هاردوير:** المحرك، تركيب القطاعات، كل أوامر MMC، حارس البَفر، وكل تنظيم الحرق بيتستوا ضد درايف وهمي.
+- **محرك ديثرينج قطبي (Polar Dithering):** تُقرأ الصورة على امتداد المسار الحلزوني الحقيقي (`r² = r₀² + p·s/π`)، ويُوزَّع الخطأ **في هندسة القرص نفسها**: إلى الخلية التالية على المسار، وإلى الخلية الواقعة على الزاوية نفسها بعد دورة أو أكثر. متاح كيرنلا **Floyd–Steinberg** و**Jarvis–Judice–Ninke**، ومن درجتين إلى 8 درجات.
+- **ذاكرة ثابتة:** تُقرأ الصورة سطرًا بسطر وتُختزل إلى رستر مربّع صغير، ويُخزَّن الخطأ في مخزن دائري بمساحة تعادل دورتين تقريبًا؛ فحرق قرص مدته 80 دقيقة لا يحتاج ذاكرة أكبر من حرق قرص مدته 5 دقائق.
+- **تحكم كامل في القطاعات:** كل قطاع من **2352 بايتًا** يُبنى داخل البرنامج (تخطيط Audio DAO افتراضيًا، مع مُشوِّش (scrambler) وفق ECMA-130 لتخطيط Mode-1)، فيصل إلى مشفّر CIRC/EFM ما اختاره محرك الديثرينج تحديدًا.
+- **مسار حرق MMC كامل:** `SET CD SPEED` ← `MODE SELECT` ← `SEND CUE SHEET` ← `WRITE(10)` من LBA −150 ← `SYNCHRONIZE CACHE`، عبر SPTI مع تفعيل منع انقطاع المخزن المؤقت.
+- **حارس المخزن المؤقت:** يقرأ `READ BUFFER CAPACITY` أثناء الحرق، ويوسّع الدفعات عند انخفاض المخزن، ويقترح سرعة أهدأ للمرة التالية بدلًا من إيقاف الحرق في منتصفه.
+- **معايرة من 16 خطوة:** سلّم من بايتات مرشّحة يُحرق كحلقات متتابعة، تختار منه الأفتح والأغمق لحارقك ووسطك، وتُحفظ القيمة في `config.ini`.
+- **حواجز أمان:** الحرق الحقيقي مقفل حتى ينجح *Test write* مرة واحدة، والإلغاء ينبّه إلى أن وضع DAO لا يقبل الاستكمال.
+- **اختبارات بلا عتاد:** المحرك، وبناء القطاعات، وكل أوامر MMC، وحارس المخزن المؤقت، وتنظيم الحرق بأكمله تُختبر على حارق وهمي.
 
 ---
 
-## ⚙️ كيف يعمل / How it works
+## ⚙️ كيف يعمل
 
 <div align="center">
   <img src="docs/images/architecture.svg" alt="مسار البيانات من الصورة إلى القرص" width="100%">
 </div>
 
-1. **صورة ← رستر رمادي.** `ImageSource` بيقرأ الملف سطر بسطر (PNG/JPEG عبر `stb_image`، و BMP أصلي)
-   ويختزله لرستر مربّع 8-bit بحجم ≤ 1024 × 1024.
-2. **رستر ← درجات.** `PolarDitherEngine` بيمشي على الحلزون خلية خلية (196 بايت للخلية، 12 خلية في القطاع،
-   ≈1.33 مم طول مسار). كل خلية بتُقرأ عند (نصف قطر، زاوية) الحقيقيين، وتتكمّم، والخطأ يروح للجيران
-   **على القرص** — وعشان كده الحبيبات بتمشي مع المسار مش مع حدود الشاشة.
-3. **درجات ← قطاعات.** `SectorComposer` بيحوّل كل درجة لقطاع خام 2352 بايت. في Audio DAO مفيش scramble
-   ومفيش EDC/ECC، فالـ 2352 بايت كلها بتوصل للمشفّر زي ما هي.
-4. **قطاعات ← درايف.** `RawDaoWriter` بينفّذ تسلسل MMC اللي فوق، و`SafeBufferMonitor` بيغذّيه، والتقدم
-   والبَفر والسرعة المقترحة بترجع للواجهة.
+1. **من الصورة إلى رستر رمادي.** يقرأ `ImageSource` الملف سطرًا بسطر (PNG/JPEG عبر `stb_image`، وBMP أصلًا) ويختزله إلى رستر مربّع بدرجة 8-بت وحجم لا يتجاوز 1024 × 1024.
+2. **من الرستر إلى الدرجات.** يمشي `PolarDitherEngine` على الحلزون خليةً خلية (196 بايتًا للخلية، و12 خلية في القطاع، أي نحو 1.33 مم من المسار). تُقرأ كل خلية عند (نصف قطر، زاوية) الحقيقيين، وتُكمَّم، فينتقل الخطأ إلى الجيران **على القرص**؛ ولذلك تتبع الحبيبات المسار، لا حدود الشاشة.
+3. **من الدرجات إلى القطاعات.** يحوّل `SectorComposer` كل درجة إلى قطاع خام من 2352 بايتًا. وفي Audio DAO لا يوجد تشويش ولا EDC/ECC، فتصل البايتات كاملة إلى المشفّر كما هي.
+4. **من القطاعات إلى الحارق.** ينفّذ `RawDaoWriter` تسلسل أوامر MMC السابق، ويغذّيه `SafeBufferMonitor`، وتعود إلى الواجهة نسبة التقدم، وحالة المخزن، والسرعة المقترحة.
 
-تفاصيل أعمق في [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+التفاصيل الأعمق في [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
 <a id="download"></a>
 
-## ⬇️ التحميل والتثبيت / Download
+## ⬇️ التحميل والتثبيت
 
-### الطريقة الأسهل: ملف exe جاهز
+### الطريقة الأسهل: ملف تنفيذي جاهز
 
 <div align="center">
 
-**⬇️ [حمّل `DiscImageStudio-win32.exe` من صفحة الـ Releases](https://github.com/abd77o/DiscImageStudio/releases/latest)**
-
-<br>
-
-| الخطوة | اعمل إيه |
-|:--:|---|
-| ١ | دوس على زرار **Download** فوق، ونزّل `DiscImageStudio-win32.exe` (وفيه ملف `.sha256` للتأكد إن التحميل سليم) |
-| ٢ | حطّه في أي فولدر — **مفيش تثبيت، مفيش Setup، مفيش registry** |
-| ٣ | كليك يمين → **Run as administrator** (لازم — لأن الكتابة على الدرايف محتاجة صلاحية أدمن) |
-| ٤ | لو Windows ظهر "Windows protected your PC" → **More info** → **Run anyway** (البرنامج مش موقّع بشهادة مدفوعة) |
+**[⬇️ حمّل `DiscImageStudio-win32.exe` من صفحة الإصدارات](https://github.com/abd77o/DiscImageStudio/releases/latest)**
 
 </div>
 
-### تأكيد سلامة الملف (اختياري)
+| الخطوة | ما تفعله |
+|:--:|---|
+| 1 | نزّل الملف `DiscImageStudio-win32.exe`، ومعه ملف `.sha256` للتحقق من سلامة التنزيل |
+| 2 | ضعه في أي مجلد — **لا تثبيت، ولا Setup، ولا تعديل على سجل النظام** |
+| 3 | انقر عليه بزر الفأرة الأيمن ثم اختر **Run as administrator** (إلزامي، لأن الكتابة على الحارق تتطلب صلاحية مدير) |
+| 4 | إن ظهر تحذير Windows: **More info** ← **Run anyway** (البرنامج غير موقّع بشهادة مدفوعة) |
+
+### التحقق من سلامة الملف (اختياري)
 
 ```powershell
 Get-FileHash .\DiscImageStudio-win32.exe -Algorithm SHA256
-# وقارنها بملف DiscImageStudio-win32.exe.sha256 من نفس صفحة الإصدار
+# ثم قارن الناتج بملف DiscImageStudio-win32.exe.sha256 من صفحة الإصدار نفسها
 ```
 
-### أو ابنِها بنفسك من السورس
+### أو ابنِه بنفسك من المصدر
 
 ```bat
 git clone https://github.com/abd77o/DiscImageStudio.git
@@ -162,132 +149,125 @@ scripts\fetch_deps.bat       :: Dear ImGui + stb_image
 build_vs2017.bat             :: -> build\Release\DiscImageStudio.exe
 ```
 
-أو بـ CMake مباشرة: `cmake -S . -B build -A Win32 -T v141_xp` ثم `cmake --build build --config Release`.
+أو عبر CMake مباشرةً: `cmake -S . -B build -A Win32 -T v141_xp` ثم `cmake --build build --config Release`.
 
 <details>
-<summary><strong>Linux / macOS — للاختبارات فقط (بدون واجهة وبدون حارق)</strong></summary>
+<summary><strong>Linux / macOS — للاختبارات فقط (بلا واجهة وبلا حارق)</strong></summary>
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
 ctest --test-dir build --output-on-failure
 ```
+
 </details>
 
 ---
 
-## 💻 المتطلبات / Requirements
+## 💻 المتطلبات
 
-| | |
+| البند | التفاصيل |
 |---|---|
-| **النظام** | Windows 7 SP1 أو أحدث — بناء x86 static بيشتغل على ٦٤ بت كمان (الكود مصمم ومُهندس لـ 7 حتى 11) |
-| **الرام** | أي حاجة — البرنامج نفسه بيشتغل في حدود ميجابايتات، ومصمم لأجهزة 512 ميجا |
-| **الهاردوير** | حارق **CD-R / CD-RW** يدعم raw Disc-At-Once. **CD فقط** — معظم حوارق DVD ملهاش raw DAO |
+| **نظام التشغيل** | Windows 7 SP1 أو أحدث؛ بناء x86 الساكن يعمل على 64-بت أيضًا (الكود مصمم ومُهندَس لـ 7 حتى 11) |
+| **الذاكرة** | أي مقدار؛ البرنامج يعمل في حدود ميغابايتات، ومصمم لأجهزة 512 ميجابايت |
+| **العتاد** | حارق **CD-R / CD-RW** يدعم الكتابة الخام Disc-At-Once. **أقراص CD فقط**، فمعظم حوارق DVD لا تدعم raw DAO |
 | **الصور** | PNG / JPEG / BMP |
-| **الصلاحيات** | Administrator (إلزامي للكتابة على الدرايف) |
-| **الإنترنت** | مش مطلوب بعد التحميل |
+| **الصلاحيات** | Administrator (إلزامية للكتابة على الحارق) |
+| **الإنترنت** | غير مطلوب بعد التحميل |
 
 ---
 
-## 🚀 الاستخدام / Usage
+## 🚀 الاستخدام
 
-1. شغّل البرنامج **كـ Administrator**، اختار الحارق وسرعة منخفضة (**4×** بداية آمنة).
-2. **تبويب المعايرة:** احرق السلّم على CD-RW، بص على الأسطوانة، سجّل الباند الأفتح والأغمق → بتتحفظ في `config.ini`.
-3. **تبويب الصورة:** حمّل صورتك، ظبّط السطوع/التباين/جاما والدوران ونصف قطر الصورة، وشوف المعاينة.
-   سيب **Test write** مفعّل لحد ما ينجح مرة.
-4. **Burn:** التقدم ونسبة البَفر والسرعة المقترحة ظاهرين لايف. **إلغاء حرق حقيقي = تلقيح الأسطوانة.**
+1. شغّل البرنامج **كمسؤول**، واختر الحارق وسرعة منخفضة (**4×** بداية آمنة).
+2. **تبويب المعايرة:** احرق السلّم على أسطوانة CD-RW، ثم انظر إلى الأسطوانة وسجّل النطاق الأفتح والأغمق؛ تُحفظ القيم في `config.ini`.
+3. **تبويب الصورة:** حمّل صورتك، واضبط السطوع والتباين وجاما والدوران ونصف قطر الصورة، وراجع المعاينة. أبقِ **Test write** مُفعّلًا حتى ينجح مرة.
+4. **الحرق:** تظهر نسبة التقدم وحالة المخزن والسرعة المقترحة مباشرةً. **إلغاء حرق حقيقي يعني إتلاف الأسطوانة**، لأن Disc-At-Once لا يقبل الاستكمال.
 
 ---
 
-## 🛡️ السلامة وحدود الهاردوير / Safety
+## 🛡️ السلامة وحدود العتاد
 
-- **CD فقط.** الـ preflight بيرفض أي ميديا غير CD.
-- **الحرق بيلغي الأسطوانة.** جرّب على CD-RW الأول.
-- **الدقة محدودة بطبيعتها:** الخلايا ≈1.3 مم على المسار و1.6 µm عبره، والمشفّر بيمد البيانات على قطاع كامل —
-  توقّع تدرّج ناعم في الاتجاه الشعاعي وتفاصيل أقل في الاتجاه المماسي.
-- **Test write** مش مدعوم في حوارق حديثة كتير؛ لو درايفك رفضه، جرّب على CD-RW وسجّل `test_write_passed=1` في `config.ini`.
+- **أقراص CD فقط.** يرفض فحص ما قبل الحرق أي وسيط غير CD.
+- **الحرق يُتلف الأسطوانة.** ابدأ بأسطوانة CD-RW.
+- **الدقة محدودة بطبيعة الوسيط:** الخلايا بنحو 1.3 مم على المسار و1.6 ميكرومتر عبره، ويمدّ المشفّر البيانات على قطاع كامل؛ توقّع تدرّجًا ناعمًا في الاتجاه الشعاعي وتفاصيل أقل في الاتجاه المماسي.
+- **Test write** غير مدعوم في حوارق حديثة كثيرة؛ فإن رفضه حارقك، جرّب على CD-RW ثم سجّل `test_write_passed=1` في `config.ini`.
 - القائمة الكاملة: [docs/HARDWARE_NOTES.md](docs/HARDWARE_NOTES.md).
 
 ---
 
-## 📁 هيكل المشروع / Layout
+## 📁 بنية المشروع
 
-| المسار | إيه فيه |
+| المسار | المحتوى |
 |---|---|
 | `src/core` | هندسة القرص، تحميل الصور بالبث، محرك الديثرينج القطبي، `config.ini` |
-| `src/burn` | scrambler، تركيب القطاعات، أوامر MMC، CUE sheet، حارس البَفر، كاتب DAO، جهاز SPTI |
-| `src/calib` | مصادر المعايرة (سلّم / باندات متبادلة) |
-| `src/gui` | خيط الحرق، منطق واجهة ImGui، مضيف Win32 + Direct3D 9 |
-| `tests` | اختبارات الدرايف الوهمي (logic / gui / end-to-end) |
-| `tools` | `dither_preview` — معاينة بدون واجهة |
-| `scripts` · `docs` | تحميل الاعتماديات · المعمارية والبناء وملاحظات الهاردوير |
+| `src/burn` | المُشوِّش (scrambler)، بناء القطاعات، أوامر MMC، ورقة CUE، حارس المخزن، كاتب DAO، جهاز SPTI |
+| `src/calib` | مصادر المعايرة (سلّم، ونطاقات متبادلة) |
+| `src/gui` | خيط الحرق، منطق واجهة ImGui، مضيف Win32 وDirect3D 9 |
+| `tests` | اختبارات الحارق الوهمي (المنطق، الواجهة، الحرق الكامل) |
+| `tools` | `dither_preview` — معاينة بلا واجهة |
+| `scripts` · `docs` | تحميل الاعتماديات · المعمارية والبناء وملاحظات العتاد |
 
 ---
 
-## 🧪 الاختبارات و CI / Tests
+## 🧪 الاختبارات والتكامل المستمر
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j
 ctest --test-dir build --output-on-failure
 ```
 
-تلات مجموعات: `test_burn_logic` (scrambler، تركيب القطاعات، كل CDB، حارس البَفر، سيناريوهات الحرق)،
-`test_gui_logic` (الإعدادات، القص، دورة حياة المهمة، الإلغاء، قفل الحرق)، و`test_image_burn` (من BMP
-لحد الكاتب على درايف وهمي). مفيش حاجة محتاجة حارق ولا أسطوانة ولا أدمن.
+ثلاث مجموعات: `test_burn_logic` (المُشوِّش، بناء القطاعات، كل أوامر CDB، حارس المخزن، سيناريوهات الحرق)، و`test_gui_logic` (الإعدادات، القص، دورة حياة المهمة، الإلغاء، قفل الحرق)، و`test_image_burn` (من BMP حتى الكاتب على حارق وهمي). لا شيء منها يحتاج حارقًا ولا أسطوانة ولا صلاحية مدير.
 
-GitHub Actions بيشغّل الاختبارات على Linux (GCC + Clang) وبيبني الواجهة على Windows؛ وأي tag بيطلع
-**إصدار منشور** فيه `DiscImageStudio-win32.exe` + checksum.
+يشغّل GitHub Actions الاختبارات على Linux (GCC وClang)، ويبني الواجهة على Windows؛ وكل وسم (tag) يُنتج **إصدارًا منشورًا** يضم `DiscImageStudio-win32.exe` وملف التحقق.
 
 ---
 
-## 🗺️ خارطة الطريق / Roadmap
+## 🗺️ خارطة الطريق
 
-- [ ] **الواجهة الحديثة** زي التصميم المقترح (Start / Design / Preview / Etch / Manage + الوضع الداكن)
-- [ ] مصفوفة تحقق على هاردوير حقيقي (درايف × ميديا × سرعة) + قالب تقرير جاهز
-- [ ] معايرة أوتوماتيكية (قراءة السلّم بالفحص بدل العين)
+- [ ] **الواجهة الحديثة** كما في التصميم المقترح (Start / Design / Preview / Etch / Manage، مع الوضع الداكن)
+- [ ] مصفوفة تحقق على عتاد حقيقي (حارق × وسيط × سرعة) مع قالب تقرير جاهز
+- [ ] معايرة آلية (قراءة السلّم بالفحص بدلًا من العين)
 - [ ] تعويض مسبق لتشويش CIRC لزيادة حِدّة الصورة
 - [ ] وضع سطر أوامر لحرق مجموعة تصاميم دفعة واحدة
-- [ ] التحقق من ثوابت Mode-1 في الـ CUE sheet (`kFormDataRaw`, `kFormLeadData`) ضد MMC
+- [ ] التحقق من ثوابت Mode-1 في ورقة CUE (`kFormDataRaw`, `kFormLeadData`) مقابل MMC
 
 ---
 
-## 🤝 المساهمة / Contributing
+## 🤝 المساهمة
 
-أهم مساهمة ممكن تقدّمها دلوقتي هي **تقرير هاردوير**: موديل الدرايف، الفيرموير، نوع الأسطوانة، السرعة، النتيجة،
-وصورة للأسطوانة. اقرأ [CONTRIBUTING.md](CONTRIBUTING.md) و[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+أهم مساهمة ممكنة اليوم هي **تقرير عتاد**: طراز الحارق، وإصدار البرنامج الثابت، ونوع الأسطوانة، والسرعة، والنتيجة، وصورة للأسطوانة. اقرأ [CONTRIBUTING.md](CONTRIBUTING.md) و[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
-- 🐞 [بلّغ عن مشكلة](../../issues/new/choose) · 🔐 [سياسة الأمان](SECURITY.md) · 📋 [سجل التغييرات](CHANGELOG.md)
+- 🐞 [أبلغ عن مشكلة](../../issues/new/choose) · 🔐 [سياسة الأمان](SECURITY.md) · 📋 [سجل التغييرات](CHANGELOG.md)
 
 ---
 
-## 📄 الرخصة / License
+## 📄 الرخصة
 
 [MIT](LICENSE) © 2026 **abd77o**.
-طرف ثالث: **Dear ImGui** (MIT) و **stb_image** (public domain / MIT) — بيتحمّلوا وقت البناء ومش مرفوعين في الريبو.
 
-## 📬 التواصل / Contact
+مكونات الطرف الثالث: **Dear ImGui** (MIT) و**stb_image** (ملكية عامة / MIT)، تُحمَّل وقت البناء ولا تُرفع إلى المستودع.
 
-- GitHub: [@abd77o](https://github.com/abd77o) · Email: [poi99poin@gmail.com](mailto:poi99poin@gmail.com)
-- Releases: [github.com/abd77o/DiscImageStudio/releases](https://github.com/abd77o/DiscImageStudio/releases)
+## 📬 التواصل
+
+- GitHub: [@abd77o](https://github.com/abd77o) · البريد: [poi99poin@gmail.com](mailto:poi99poin@gmail.com)
+- الإصدارات: [github.com/abd77o/DiscImageStudio/releases](https://github.com/abd77o/DiscImageStudio/releases)
+
+</div>
 
 ---
 
 ## English overview
 
-**7Disc Image Studio** draws a picture into the **data side of a CD-R** using the disc's own pit pattern —
-no label, no printer, no LightScribe drive. The laser is the pen.
+**7Disc Image Studio** draws a picture into the **data side of a CD-R** using the disc's own pit pattern — no label, no printer, no LightScribe drive. The laser is the pen.
 
-- **One static `.exe`, zero runtime dependencies**, Dear ImGui + Direct3D 9 — runs on Windows 7 through 11,
-  built for 512 MB machines. No installer, no redistributable, no network needed after download.
-- **Polar dithering engine:** samples the image along the real spiral and error-diffuses in disc geometry
-  (next cell on the track, same angle on following revolutions). Floyd–Steinberg / Jarvis–Judice–Ninke, 2–8 tones,
-  constant memory.
+- **One static `.exe` (610 KB), zero runtime dependencies**, Dear ImGui + Direct3D 9 — runs on Windows 7 through 11, engineered for 512 MB machines. No installer, no redistributable, no network needed after download.
+- **Polar dithering engine:** the image is sampled along the real spiral and the error is diffused in disc geometry (next cell on the track, same angle on following revolutions). Floyd–Steinberg / Jarvis–Judice–Ninke kernels, 2–8 tones, constant memory.
 - **Raw sector control:** hand-composed 2352-byte sectors (Audio DAO by default, ECMA-130 scrambler for Mode-1).
-- **Full MMC burn path:** `SET CD SPEED` → `MODE SELECT` → `SEND CUE SHEET` → `WRITE(10)` from LBA −150 →
-  `SYNCHRONIZE CACHE`, over SPTI, with buffer-underrun-free recording and a `READ BUFFER CAPACITY` watchdog.
-- **16-step calibration ladder** to find the lightest/darkest tone pair for your drive and media.
-- **Three hardware-free test suites** run against a mock drive on every push (Linux, GCC + Clang) plus a Windows build.
+- **Full MMC burn path:** `SET CD SPEED` → `MODE SELECT` → `SEND CUE SHEET` → `WRITE(10)` from LBA −150 → `SYNCHRONIZE CACHE`, over SPTI, with buffer-underrun-free recording and a `READ BUFFER CAPACITY` watchdog.
+- **16-step calibration ladder** to find the lightest and darkest tone pair for your drive and media.
+- **Three hardware-free test suites** run against a mock drive on every push (Linux, GCC + Clang), plus a Windows build and a published release on every tag.
 
-**Download:** [latest `DiscImageStudio-win32.exe`](https://github.com/abd77o/DiscImageStudio/releases/latest) ·
-run it as Administrator. **Status: experimental** — it permanently destroys the disc it writes to, so start with a
-CD-RW and read [docs/HARDWARE_NOTES.md](docs/HARDWARE_NOTES.md). Licensed under [MIT](LICENSE).
+**Download:** [latest `DiscImageStudio-win32.exe`](https://github.com/abd77o/DiscImageStudio/releases/latest) and run it as Administrator.
+**Status: experimental** — it permanently destroys the disc it writes to, so start with a CD-RW and read
+[docs/HARDWARE_NOTES.md](docs/HARDWARE_NOTES.md). Licensed under [MIT](LICENSE).

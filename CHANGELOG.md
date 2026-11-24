@@ -15,6 +15,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ## [0.1.1] — 2026-11-24
 
 ### Changed
+- README rewritten in clear Modern Standard Arabic with right-to-left document sections (`dir="rtl"`),
+  consistent Latin numerals, and tables that carry real headers instead of empty cells.
 - README rewritten as a download-first page: a one-click `DiscImageStudio-win32.exe` button, a four-step
   install guide, SHA256 verification and the project's own real-burn photography.
 - Releases now publish **automatically** on a tag and ship a **stable asset name**
