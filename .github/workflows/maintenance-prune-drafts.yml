@@ -1,8 +1,8 @@
 name: Maintenance
 
+# Manual only: run it from the Actions tab when a stale draft release needs removing.
+# It is deliberately not triggered on push, so a draft cannot disappear by accident.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
