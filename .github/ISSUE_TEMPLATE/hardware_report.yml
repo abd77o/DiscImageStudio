@@ -1,0 +1,86 @@
+name: Hardware report
+description: You burned (or tried to burn) a disc — tell us what the drive did. The most valuable issue type.
+labels: ["hardware", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — real-hardware data is the main thing this project is missing. A photo of the result is worth
+        more than a paragraph of description, so attach one if you can (phone photo in daylight, disc at an angle).
+  - type: input
+    id: drive
+    attributes:
+      label: Drive model and firmware
+      placeholder: e.g. "PLEXTOR PX-891SAF, fw 1.05"
+    validations:
+      required: true
+  - type: input
+    id: media
+    attributes:
+      label: Media
+      placeholder: e.g. "Verbatim CD-R 52x 700 MB, DataLifePlus CD-RW 4x"
+    validations:
+      required: true
+  - type: dropdown
+    id: layout
+    attributes:
+      label: Sector layout
+      options:
+        - Audio DAO (default)
+        - Mode-1 data (experimental)
+        - Calibration ladder only
+        - Alternating test only
+    validations:
+      required: true
+  - type: input
+    id: speed
+    attributes:
+      label: Write speed
+      placeholder: 4x
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      options:
+        - Disc burned, artwork clearly visible
+        - Disc burned, artwork faint but visible
+        - Disc burned, nothing visible
+        - Burn aborted with a SCSI error
+        - Drive rejected the command set entirely
+        - Test write succeeded, real burn failed
+    validations:
+      required: true
+  - type: textarea
+    id: job
+    attributes:
+      label: Command flow / error codes
+      description: Sense key, ASC, ASCQ, the command that failed, and the buffer events from the status line.
+      render: shell
+    validations:
+      required: false
+  - type: input
+    id: calib
+    attributes:
+      label: Calibration values found
+      description: The light and dark bytes saved to config.ini, and whether freeze/mirror were set.
+      placeholder: light=0xEE dark=0x11 angleOffset=0 mirror=false
+    validations:
+      required: false
+  - type: textarea
+    id: photo
+    attributes:
+      label: Photo or scan of the disc
+      description: Drag an image into this box. Mention lighting and viewing angle.
+    validations:
+      required: false
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Before submitting
+      options:
+        - label: The disc I burned was expendable (CD-RW or a spare).
+          required: true
+        - label: I have read docs/HARDWARE_NOTES.md.
+          required: true

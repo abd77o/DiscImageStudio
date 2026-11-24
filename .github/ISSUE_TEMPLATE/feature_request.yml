@@ -1,0 +1,52 @@
+name: Feature request
+description: Propose a capability, an improvement or a design change.
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        DiscImageStudio is deliberately small: one binary, no runtime dependencies, and the core must stay
+        platform-neutral and testable without hardware. Requests that respect those constraints get much further.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you unable to do today?
+      placeholder: On my laptop the drive buffer starves at 8x and the recommended speed never drops below 4x...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Sketch the approach if you have one. Mention which module it would touch.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - Dithering / image quality
+        - Calibration workflow
+        - Burn reliability / buffer handling
+        - GUI / usability
+        - Build, packaging, CI
+        - Documentation
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Constraints acknowledged
+      options:
+        - label: This keeps the core free of Windows-only code and testable on a mock drive.
+          required: true
+        - label: This does not add a mandatory runtime dependency.
+          required: true

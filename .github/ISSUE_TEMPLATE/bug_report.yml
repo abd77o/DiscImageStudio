@@ -1,0 +1,78 @@
+name: Bug report
+description: Something in the app, the build or the tests does not behave as documented.
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before you file: this tool **writes raw sectors and destroys the disc**. A failed burn may be expected
+        behaviour on unsupported hardware — for that, please use the *Hardware report* template instead.
+
+        Do not paste full `config.ini` files that contain personal paths, and never attach a copyrighted image you
+        did not create.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, what you got, and the exact text from the status line.
+      placeholder: |
+        Expected: burn finishes at 100%
+        Got: CHECK CONDITION, sense key 05 / ASC 24 / ASCQ 00 at 37%, status line says "..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. build_vs2017.bat, run as Administrator
+        2. Calibration tab -> ladder -> test write
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Build / CMake / toolchain
+        - GUI or job flow
+        - Dithering / image input
+        - Sector composition or CUE sheet
+        - MMC commands / burner
+        - Buffer monitor
+        - Tests
+        - Documentation
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v0.1.0 / main@a1b2c3d
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS and toolchain
+      placeholder: Windows 7 SP1 x86, VS2017 v141_xp, CMake 3.20
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Console output, error codes, or the assertion that failed. Long logs are better as a gist link.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues for this problem.
+          required: true
+        - label: I did not test this on media I need to keep.
+          required: true

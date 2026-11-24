@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the hardware notes first
+    url: https://github.com/abd77o/DiscImageStudio/blob/main/docs/HARDWARE_NOTES.md
+    about: Known limits, media caveats and what "experimental" means for your drive.
+  - name: Build and toolchain troubleshooting
+    url: https://github.com/abd77o/DiscImageStudio/blob/main/docs/BUILDING.md
+    about: Toolset, DirectX SDK and dependency problems.
+  - name: Report a security issue privately
+    url: https://github.com/abd77o/DiscImageStudio/security/policy
+    about: Please do not open a public issue for anything that could write to the wrong device.
