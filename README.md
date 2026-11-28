@@ -38,7 +38,7 @@
 
 </div>
 
-**One 610 KB executable · no installer · no runtime dependencies · no network needed after download**
+**One 638 KB executable · no installer · no runtime dependencies · no network needed after download**
 
 | 1 | 2 | 3 |
 |:--:|:--:|:--:|
@@ -62,19 +62,20 @@
 - **Proof, not renders.** The image at the top of this page is a photograph of a real burned disc, and the burn path is rehearsed end to end on a mock drive with no hardware at all.
 - **No claims without evidence.** Three test suites exercise the complete burn path against a mock drive, with no hardware required, and they run on Linux on every change.
 
-> **Verifiable numbers:** the whole program is **610 KB** — smaller than a phone photo — with **44 C++ files** out of 76 files in the repository, **3 test suites**, and **zero** dependencies.
+> **Verifiable numbers:** the whole program is **638 KB** — smaller than a phone photo — with **56 C++ files** out of 91 files in the repository, **4 test suites**, and **zero** dependencies.
 >
-> **Honestly:** `0.1.x` is a strong beginning, not a finish line. The burn path is verified automatically against a mock drive, and real-world results are documented with the author's own photographs. The (drive × media × speed) matrix is still being built — and it is the single most valuable thing you can contribute.
+> **Honestly:** `0.2.x` is a strong beginning, not a finish line. The burn path is verified automatically against a mock drive, and real-world results are documented with the author's own photographs. The (drive × media × speed) matrix is still being built — and it is the single most valuable thing you can contribute.
 
 ---
 
 ## 🖥️ Interface
 
 <div align="center">
-  <img src="docs/images/ui-concept.jpg" alt="Proposed interface design for 7Disc Image Studio" width="94%">
+  <img src="docs/images/ui-concept.jpg" alt="Interface design for 7Disc Image Studio" width="94%">
   <br>
-  <sub><b>The proposed modern interface</b> — Start / Design / Preview / Etch / Manage.<br>
-  The interface shipped in <code>0.1.x</code> is simpler than that: a single ImGui window with an image tab, a calibration tab and a progress bar.</sub>
+  <sub><b>The design the interface is built from</b> — Start / Design / Preview / Etch / Manage.<br>
+  <code>0.2.0</code> ships the first half of it: a dark theme drawn with vector icons and cards, a live disc
+  preview of the real burnable annulus, and a burn log you can attach to a bug report.</sub>
 </div>
 
 ---
@@ -224,7 +225,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j
 ctest --test-dir build --output-on-failure
 ```
 
-Three suites: `test_burn_logic` (scrambler, sector composition, every CDB, buffer watchdog, burn scenarios), `test_gui_logic` (settings, clipping, task lifecycle, cancellation, burn lock), and `test_image_burn` (from BMP all the way to the writer on a mock drive). None of them needs a burner, a disc or administrator rights.
+Four suites: `test_burn_logic` (scrambler, sector composition, every CDB, buffer watchdog, burn scenarios), `test_gui_logic` (settings, clipping, task lifecycle, cancellation, burn lock), `test_image_burn` (from BMP all the way to the writer on a mock drive) and `test_preview` (the disc renderer's annulus geometry and tone response). None of them needs a burner, a disc or administrator rights.
 
 GitHub Actions runs the tests on Linux (GCC and Clang) and builds the interface on Windows; every tag produces a **published release** carrying `DiscImageStudio-win32.exe` and its checksum file.
 
@@ -232,7 +233,8 @@ GitHub Actions runs the tests on Linux (GCC and Clang) and builds the interface 
 
 ## 🗺️ Roadmap
 
-- [ ] **The modern interface** from the proposed design (Start / Design / Preview / Etch / Manage, with a dark mode)
+- [ ] **The remaining screens** of the Start / Design / Preview / Etch / Manage flow (the dark theme, cards
+      and vector icons landed in `0.2.0`)
 - [ ] A validation matrix on real hardware (drive × media × speed) with a ready-made report template
 - [ ] Automatic calibration (reading the ladder by inspection instead of by eye)
 - [ ] Pre-compensation for CIRC scrambling to sharpen the image
