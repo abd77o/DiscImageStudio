@@ -9,12 +9,14 @@
 #endif
 #include <windows.h>
 #include <d3d9.h>
+#include <shellapi.h>
 #include <string>
 
 #include "imgui.h"
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
 #include "App.h"
+#include "Theme.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -47,7 +49,7 @@ static void ResetDevice() {
 }
 
 static void UpdatePreviewTexture() {
-    if (!g_dev || !g_app->takePreviewDirty()) return;
+    if (!g_dev || !g_app->refreshPreview()) return;
     if (!g_previewTex) {
         if (g_dev->CreateTexture(dis::App::kPreview, dis::App::kPreview, 1, 0, D3DFMT_A8R8G8B8,
                                  D3DPOOL_MANAGED, &g_previewTex, NULL) != D3D_OK) { g_previewTex = NULL; return; }
@@ -65,6 +67,18 @@ static void UpdatePreviewTexture() {
 static LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam)) return true;
     switch (msg) {
+    case WM_DROPFILES: {
+        HDROP drop = (HDROP)wParam;
+        wchar_t path[2048] = {0};
+        if (DragQueryFileW(drop, 0, path, 2048) && g_app) {
+            int n = WideCharToMultiByte(CP_UTF8, 0, path, -1, NULL, 0, NULL, NULL);
+            std::string u((size_t)n, '\0');
+            WideCharToMultiByte(CP_UTF8, 0, path, -1, &u[0], n, NULL, NULL);
+            u.resize((size_t)n - 1);
+            g_app->loadImagePath(u);
+        }
+        DragFinish(drop);
+        return 0; }
     case WM_CLOSE:
         if (g_app && g_app->busyRealBurn()) {
             MessageBoxW(hWnd, L"A burn is in progress. Cancel it first (this ruins the disc), then close.",
@@ -99,11 +113,21 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int) {
     WNDCLASSEXW wc = { sizeof wc, CS_CLASSDC, WndProc, 0, 0, hInst, NULL, LoadCursor(NULL, IDC_ARROW),
                        NULL, NULL, L"DiscImageStudioWnd", NULL };
     RegisterClassExW(&wc);
-    RECT rc = { 0, 0, 640, 700 };
+    RECT rc = { 0, 0, 900, 600 };
     const DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;   // fixed size
     AdjustWindowRect(&rc, style, FALSE);
-    HWND hwnd = CreateWindowW(wc.lpszClassName, L"DiscImageStudio", style, 100, 40,
-                              rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInst, NULL);
+    const int ww = rc.right - rc.left, wh = rc.bottom - rc.top;
+    const int px = (GetSystemMetrics(SM_CXSCREEN) - ww) / 2, py = (GetSystemMetrics(SM_CYSCREEN) - wh) / 2;
+    HWND hwnd = CreateWindowW(wc.lpszClassName, L"DiscImageStudio", style, px > 0 ? px : 0, py > 0 ? py : 0,
+                              ww, wh, NULL, NULL, hInst, NULL);
+    // The exe runs elevated; allow drag & drop from the (non-elevated) Explorer despite UIPI.
+    DragAcceptFiles(hwnd, TRUE);
+    {
+        typedef BOOL (WINAPI *ChangeFilterEx)(HWND, UINT, DWORD, void*);
+        HMODULE u32 = GetModuleHandleW(L"user32.dll");
+        ChangeFilterEx f = u32 ? (ChangeFilterEx)GetProcAddress(u32, "ChangeWindowMessageFilterEx") : NULL;
+        if (f) { f(hwnd, WM_DROPFILES, 1 /*MSGFLT_ALLOW*/, NULL); f(hwnd, 0x004A /*WM_COPYDATA*/, 1, NULL); f(hwnd, 0x0049, 1, NULL); }
+    }
     if (!CreateDevice(hwnd)) {
         MessageBoxW(hwnd, L"Could not create a Direct3D 9 device.", L"DiscImageStudio", MB_OK | MB_ICONERROR);
         UnregisterClassW(wc.lpszClassName, hInst);
@@ -116,7 +140,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int) {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     io.IniFilename = NULL;                       // no imgui.ini
-    ImGui::StyleColorsDark();
+    ui::loadFonts();
+    ui::applyTheme();
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX9_Init(g_dev);
 
@@ -148,7 +173,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int) {
         g_dev->SetRenderState(D3DRS_ZENABLE, FALSE);
         g_dev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
         g_dev->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
-        g_dev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(30, 30, 34, 255), 1.0f, 0);
+        g_dev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0x18, 0x1A, 0x20, 255), 1.0f, 0);
         if (g_dev->BeginScene() >= 0) {
             ImGui::Render();
             ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());

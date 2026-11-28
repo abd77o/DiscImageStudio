@@ -36,6 +36,10 @@ struct BurnResult {
     uint32_t    lowEvents = 0, criticalEvents = 0;
     double      minFill = 1.0;
     int         recommendedSpeedX = 0;  // for the next burn
+    std::string failedStep;                 // e.g. "MODE SELECT (write parameters)"
+    uint8_t     senseKey = 0, asc = 0, ascq = 0;
+    // The drive refused the write settings while TEST WRITE was requested: most likely it has no test-write support.
+    bool rejectedTestWrite() const { return !ok && failedStep == "MODE SELECT (write parameters)" && senseKey == 0x05; }
 };
 
 // Return false from the callback to cancel (the disc will be unusable).

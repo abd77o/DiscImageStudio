@@ -1,11 +1,6 @@
 # Hardware notes and known limits
 
-Part of [DiscImageStudio](../README.md). If you test on real hardware, please send a
-[hardware report](../.github/ISSUE_TEMPLATE/hardware_report.yml) — that data is the main thing this project lacks.
-
-**Status: experimental.** The automated test suite exercises the whole burn path against a *mock* drive; real burns
-are only documented anecdotally (the disc photos in the README were burned by the author, [@abd77o](https://github.com/abd77o)).
-There is no systematic drive x media x speed matrix yet — that is what the hardware reports are for.
+**Status: experimental. The burn path has been tested only against a mock drive, never on real hardware.**
 Use a CD-RW or a spare CD-R first, with *Test write* ticked.
 
 * **CD only.** DVD has no standard raw-write mode on most burners. The preflight rejects non-CD media.
@@ -24,11 +19,3 @@ Use a CD-RW or a spare CD-R first, with *Test write* ticked.
   a CD-RW, then set `test_write_passed=1` in `config.ini`.
 * **Cancelling a real burn ruins the disc** (Disc-At-Once cannot be resumed).
 * **Administrator rights** are required for SPTI writes (the exe embeds a `requireAdministrator` manifest).
-
-## Reporting your results
-
-A useful report contains the drive model and firmware, the media (brand, type, speed rating), the sector layout,
-the write speed, the exact SCSI error if there was one, the calibration pair you saved in `config.ini`, and — most
-valuable of all — a photograph of the burned disc taken in daylight at a shallow angle.
-
-Use the *Hardware report* issue template so nothing gets forgotten.

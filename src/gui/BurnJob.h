@@ -17,6 +17,7 @@ struct BurnRequest {
     enum Kind { kImage = 0, kCalibLadder = 1, kCalibAlternate = 2 };
     Kind kind = kImage;
     char driveLetter = 0;
+    std::string logPath;                    // UTF-8 path of burn_log.txt (empty = no log)
     bool testWrite = true;
     AppConfig cfg;
     std::shared_ptr<GrayRaster> image;      // kImage only

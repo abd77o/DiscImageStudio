@@ -10,6 +10,7 @@ public:
     double   fill = 0;                 // bytes currently in the drive buffer
     double   drainPerWrite = 0;        // bytes the "laser" consumes between two WRITE commands
     uint32_t maxTransfer = 65536;
+    bool     rejectTestWrite = false;     // MODE SELECT with the test-write bit -> ILLEGAL REQUEST 26/00
 
     std::vector<uint8_t> cueSheet, modeList;
     bool     cueSeen = false, writeBeforeCue = false, contiguous = true;
@@ -46,7 +47,9 @@ public:
         case 0x46: std::fill(p, p + len, 0); p[7] = 0x09; break;      // profile CD-R
         case 0x51: std::fill(p, p + len, 0); break;                   // empty disc
         case 0x5D: cueSheet.assign(p, p + len); cueSeen = true; break;
-        case 0x55: modeList.assign(p, p + len); break;
+        case 0x55:
+            if (rejectTestWrite && len >= 11 && (p[10] & 0x10)) { r.ok = false; r.status = 2; r.senseKey = 5; r.asc = 0x26; r.ascq = 0; return r; }
+            modeList.assign(p, p + len); break;
         case 0xBB: ++speedCmds; break;
         case 0x35: ++syncCmds; break;
         default: break;

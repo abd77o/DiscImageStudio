@@ -5,6 +5,7 @@
 #endif
 #include <windows.h>
 #include <commdlg.h>
+#include <shellapi.h>
 
 namespace dis {
 
@@ -25,6 +26,14 @@ std::string openImageDialog(void* owner) {
     WideCharToMultiByte(CP_UTF8, 0, file, -1, &out[0], n, NULL, NULL);
     out.resize((size_t)n - 1);
     return out;
+}
+
+void openInDefaultApp(void* owner, const std::string& path) {
+    int n = MultiByteToWideChar(CP_UTF8, 0, path.c_str(), -1, NULL, 0);
+    if (n <= 1) return;
+    std::wstring w((size_t)n, L'\0');
+    MultiByteToWideChar(CP_UTF8, 0, path.c_str(), -1, &w[0], n);
+    ShellExecuteW((HWND)owner, L"open", w.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 } // namespace dis

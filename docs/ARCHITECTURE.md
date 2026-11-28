@@ -81,6 +81,12 @@ give it a small abstract interface next to `IScsiDevice` and implement it twice.
   ≤64 KiB chunks (27 sectors), `SYNCHRONIZE CACHE` for the lead-out. It owns cancellation, retries and the
   `BurnResult` (sector counts, buffer events, minimum fill, recommended speed). Progress callbacks return
   `false` to cancel — and cancelling a real DAO burn is fatal to the disc, which the UI states plainly.
+- **`SenseText.*`** — decodes SCSI sense data (key/ASC/ASCQ) and MMC opcodes into readable sentences, so a
+  failure says *"Illegal request: invalid field in parameter list (05/26/00)"* instead of a hex triple.
+- **`LoggingDevice.*`** — an `IScsiDevice` decorator that records every command (CDB, small payloads, result and
+  decoded sense) to `burn_log.txt`. `WRITE(10)` and `READ BUFFER CAPACITY` are throttled to the first few, every
+  Nth and every failure, so a 700 MB burn produces a readable log instead of a gigabyte of noise. This is what
+  makes a real-hardware bug report useful.
 - **`SptiDevice.*`** — the Windows implementation over `DeviceIoControl(IOCTL_SCSI_PASS_THROUGH_DIRECT)`, opened
   on `\\.\X:`; `maxTransferBytes()` reflects the adapter limit that sizes the chunks.
 
@@ -103,6 +109,15 @@ start (cheap) or at the end of a full-length burn (the true outer edge).
 - **`BurnJob.*`** runs one burn on a worker thread and publishes atomics (progress, buffer state, fill) that the
   UI polls. No locks, no callbacks into the UI, `takeFinished()` returns true exactly once. A
   `DeviceFactory` creates the device, which is how the tests substitute `MockDevice`.
+- **`Theme.*`** — the dark palette, the colour tokens and the font atlas (Segoe UI from `C:\Windows\Fonts`, with
+  ImGui's built-in font as the fallback). Everything visual reads its colours from here.
+- **`Widgets.*`** — the small custom-drawn pieces: cards, toggle switches, primary/secondary buttons, icon
+  buttons and the progress bar. Icons are vector-drawn with `ImDrawList` primitives, so there is no icon font and
+  no image file to ship.
+- **`DiscPreview.*`** — a software renderer for the "live disc" picture: a 384×384 straight-alpha ARGB image of a
+  CD-R (60 mm outer radius, transparent 7.5 mm hole, the real 25–58 mm burnable annulus, a conic sheen), with
+  brightness/contrast/gamma/rotation/mirror applied. It has no ImGui or Win32 in it, so `test_preview` checks the
+  rendered geometry headlessly.
 - **`main_win.cpp`** is the only file that creates a window, a D3D9 device and the ImGui backends. **`Dialogs_win.cpp`**
   is the native file picker; `Dialogs_stub.cpp` keeps the Linux test build linkable.
 - **Safety rails live here** — `effectiveTestWrite()` keeps real burns locked until `testWritePassed` is set, and
@@ -115,6 +130,7 @@ start (cheap) or at the end of a full-length burn (the true outer edge).
 | `test_burn_logic` | scrambler vectors, composer layouts, every CDB and response parser, buffer-monitor state machine, burn scenarios on a mock drive (healthy / starving / transfer-limited / too short) |
 | `test_gui_logic` | `config.ini` round-trip and clamping, centre-crop, the job state machine, cancel, test-write lockout |
 | `test_image_burn` | end-to-end: BMP → dither → sectors → `RawDaoWriter` → mock device, asserting sector count, write count and contiguity |
+| `test_preview` | the disc renderer: pixel geometry of the burnable annulus, the blank inner ring, and that brightness/contrast actually change the output |
 
 `MockDevice` models a drive that drains its buffer at a configurable rate, so buffer-underrun logic is exercised
 deterministically instead of hoping a real drive misbehaves on cue.

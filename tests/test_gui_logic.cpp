@@ -1,6 +1,7 @@
 // Tests for the non-UI parts of step 3: config.ini, image cropping, and the BurnJob worker thread.
 #include "../src/core/Config.h"
 #include "../src/core/ImageLoader.h"
+#include "../src/burn/SenseText.h"
 #include "../src/gui/BurnJob.h"
 #include "MockDevice.h"
 #include <chrono>
@@ -129,7 +130,57 @@ static void testJobCancelAndErrors() {
     CHECK(!job2.result().ok && job2.result().error.find("administrator") != std::string::npos);
 }
 
+static std::string slurp(const char* path) {
+    FILE* f = std::fopen(path, "rb"); std::string s;
+    if (!f) return s;
+    char b[4096]; size_t n;
+    while ((n = std::fread(b, 1, sizeof b, f)) > 0) s.append(b, n);
+    std::fclose(f); return s;
+}
+
+static void testDiagnostics() {
+    std::printf("[diagnostics: log + test-write rejection]\n");
+    CHECK(senseDescription(5, 0x26, 0).find("invalid field in parameter list") != std::string::npos);
+    CHECK(senseDescription(2, 0x3A, 0).find("medium not present") != std::string::npos);
+    CHECK(senseDescription(9, 0xEE, 0xEE).find("unknown code") != std::string::npos);
+
+    std::remove("dis_test_log.txt");
+    MockDevice dev; dev.drainPerWrite = 0.4 * 27 * 2352; dev.rejectTestWrite = true;
+    BurnJob job(factory(&dev));
+    BurnRequest r; r.kind = BurnRequest::kCalibLadder; r.driveLetter = 'G'; r.testWrite = true;
+    r.logPath = "dis_test_log.txt";
+    r.calib = CalibrationConfig::atProgramStart(16 * 100, 16 * 100);
+    r.calib.mode = CalibrationConfig::kLadder; r.calib.blockSectors = 100;
+    std::string err; CHECK(job.start(r, err)); waitDone(job);
+    BurnResult res = job.result();
+    std::printf("  error: %s\n", res.error.c_str());
+    CHECK(!res.ok && res.rejectedTestWrite() && res.failedStep == "MODE SELECT (write parameters)");
+    CHECK(res.error.find("invalid field in parameter list") != std::string::npos);
+    std::string log = slurp("dis_test_log.txt");
+    CHECK(log.find("burn session") != std::string::npos && log.find("MODE SELECT(10)") != std::string::npos);
+    CHECK(log.find("FAILED") != std::string::npos && log.find("05/26/00") != std::string::npos);
+    CHECK(log.find("RESULT: FAILED") != std::string::npos);
+
+    // same drive, real write (test bit off): succeeds; log stays small (WRITE(10) is throttled)
+    MockDevice dev2; dev2.drainPerWrite = 0.4 * 27 * 2352; dev2.rejectTestWrite = true;
+    BurnJob job2(factory(&dev2));
+    r.testWrite = false; job2.start(r, err); waitDone(job2);
+    CHECK(job2.result().ok && !job2.result().rejectedTestWrite());
+    log = slurp("dis_test_log.txt");
+    size_t cueAt = log.find("SEND CUE SHEET");
+    CHECK(cueAt != std::string::npos && log.find("RESULT: OK") != std::string::npos);
+    size_t writeLines = 0; for (size_t p = 0; (p = log.find("WRITE(10)", p)) != std::string::npos; ++p) ++writeLines;
+    std::printf("  WRITE(10) lines in log: %zu (of ~65 commands)\n", writeLines);
+    CHECK(writeLines >= 3 && writeLines <= 12);
+
+    MockDevice dev3; BurnJob job3(factory(&dev3, 0, true));
+    r.logPath = "dis_test_log.txt"; job3.start(r, err); waitDone(job3);
+    CHECK(slurp("dis_test_log.txt").find("open drive FAILED: access denied") != std::string::npos);
+    std::remove("dis_test_log.txt");
+}
+
 int main() {
+    testDiagnostics();
     testConfig(); testCropAndScale(); testJobLadder(); testJobImageAndRealBurnFlag(); testJobCancelAndErrors();
     std::printf(g_fail ? "\n%d FAILURES\n" : "\nALL TESTS PASSED\n", g_fail);
     return g_fail ? 1 : 0;

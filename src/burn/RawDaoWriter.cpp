@@ -1,5 +1,6 @@
 #include "RawDaoWriter.h"
 #include "CueSheet.h"
+#include "SenseText.h"
 #include <algorithm>
 #include <cstdio>
 #include <vector>
@@ -34,9 +35,11 @@ struct PriorityBoost {
 };
 
 std::string describe(const char* what, const ScsiResult& r) {
-    char buf[200];
-    std::snprintf(buf, sizeof buf, "%s failed: status=0x%02X sense=%X/%02X/%02X os=%u",
-                  what, r.status, r.senseKey, r.asc, r.ascq, r.osError);
+    char buf[300];
+    if (r.osError && r.status == 0)
+        std::snprintf(buf, sizeof buf, "%s failed: Windows error %u (the drive did not accept the command)", what, r.osError);
+    else
+        std::snprintf(buf, sizeof buf, "%s failed: %s", what, senseDescription(r.senseKey, r.asc, r.ascq).c_str());
     return buf;
 }
 
@@ -48,7 +51,10 @@ bool RawDaoWriter::run(const mmc::Cdb& cdb, DataDir dir, void* buf, uint32_t len
                        const char* what, BurnResult& res, bool fatal) {
     ScsiResult r = dev_.execute(cdb, dir, buf, len, timeoutSec);
     if (r.ok) return true;
-    if (fatal) res.error = describe(what, r);
+    if (fatal) {
+        res.error = describe(what, r);
+        res.failedStep = what; res.senseKey = r.senseKey; res.asc = r.asc; res.ascq = r.ascq;
+    }
     return false;
 }
 
@@ -138,7 +144,11 @@ BurnResult RawDaoWriter::burn(SectorSource& src, const BurnOptions& opt, Progres
                 if (r.ok || r.senseKey != 0x02) break;     // retry only "NOT READY" (e.g. busy)
                 sleepMs(50);
             }
-            if (!r.ok) { res.error = describe("WRITE(10)", r); res.sectorsWritten = (uint32_t)(slots[j].lba + 150); return res; }
+            if (!r.ok) {
+                res.error = describe("WRITE(10)", r); res.failedStep = "WRITE(10)";
+                res.senseKey = r.senseKey; res.asc = r.asc; res.ascq = r.ascq;
+                res.sectorsWritten = (uint32_t)(slots[j].lba + 150); return res;
+            }
         }
         lba = cur;
         ++batch;

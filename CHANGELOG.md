@@ -7,17 +7,35 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
-### Changed
-- `README.md` is now **English first** for an international C++ / SCSI / MMC audience, with the author's
-  real burned-disc photograph moved to the top of the page as the visual hook, and a prominent language
-  switcher at the very top.
-- The full Arabic documentation lives on unchanged in **`README.ar.md`**, with the same structure,
-  the author's tagline, and a link back to the English page.
-
 ### Planned
 - Real-hardware validation matrix and a bug-report template for burn results
 - Automatic calibration (read the ladder back instead of choosing bands by eye)
 - Radial/tangential pre-compensation for CIRC smearing
+
+## [0.2.0] — 2026-11-28
+
+The interface release. The burn path is unchanged; what surrounds it is new.
+
+### Added
+- **Dark UI built from scratch on Dear ImGui:** `Theme.*` (palette, colour tokens, Segoe UI font atlas with a
+  built-in fallback) and `Widgets.*` (cards, toggles, primary/secondary buttons, icon buttons and a progress bar).
+  Every icon is vector-drawn with `ImDrawList` primitives, so there is still no icon font and no extra file to ship.
+- **Live disc preview:** `DiscPreview.*` renders the disc as it will actually be burned — a 384×384 straight-alpha
+  CD-R image with the real 25–58 mm burnable annulus, a transparent centre hole, a clear hub ring and a conic
+  sheen — with brightness, contrast, gamma, rotation and mirror applied in real time.
+- **Diagnostics you can send me:** `SenseText.*` turns sense key/ASC/ASCQ and MMC opcodes into readable sentences,
+  and `LoggingDevice.*` writes `burn_log.txt` with every CDB, its result and the decoded sense (throttled for
+  `WRITE(10)` so a full burn stays readable). `docs/TROUBLESHOOTING.md` explains what to attach to a bug report.
+- `tools/disc_preview` renders a preview headlessly, and `tests/test_preview.cpp` checks the renderer's geometry
+  and tone response without a display.
+
+### Changed
+- `App.*`, `main_win.cpp`, `Dialogs_win.cpp`, `BurnJob.*` and `RawDaoWriter.*` reworked for the new UI and for the
+  diagnostics path; `CMakeLists.txt` builds the new targets and drops the hard-coded project version.
+- CI and the release job now also run `test_preview` on Linux and on Windows.
+- **Docs:** `README.md` is now English-first for an international C++ / SCSI / MMC audience, with the author's
+  real burned-disc photograph as the visual hook and a language switcher at the top; the complete Arabic
+  documentation lives on in `README.ar.md`. `docs/ARCHITECTURE.md` documents the new modules.
 
 ## [0.1.1] — 2026-11-24
 

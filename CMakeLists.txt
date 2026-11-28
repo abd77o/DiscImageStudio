@@ -1,16 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
-project(DiscImageStudio VERSION 0.1.0 LANGUAGES CXX)
-
+project(DiscImageStudio CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-option(DIS_BUILD_TESTS "Build the hardware-free test executables" ON)
-option(DIS_BUILD_TOOLS "Build the headless tools (dither_preview)" ON)
-
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
-endif()
 
 set(STB_DIR   ${CMAKE_SOURCE_DIR}/third_party/stb)
 set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/third_party/imgui)
@@ -42,7 +33,7 @@ endif()
 set(DIS_BURN_SRC
   src/burn/Scrambler.cpp src/burn/SectorComposer.cpp src/burn/SectorSource.cpp
   src/burn/Mmc.cpp src/burn/CueSheet.cpp src/burn/SafeBufferMonitor.cpp
-  src/burn/RawDaoWriter.cpp src/calib/CalibrationSource.cpp src/gui/BurnJob.cpp)
+  src/burn/RawDaoWriter.cpp src/burn/SenseText.cpp src/burn/LoggingDevice.cpp src/calib/CalibrationSource.cpp src/gui/BurnJob.cpp src/gui/DiscPreview.cpp)
 if(WIN32)
   list(APPEND DIS_BURN_SRC src/burn/SptiDevice.cpp)
 endif()
@@ -53,40 +44,31 @@ if(Threads_FOUND)
   target_link_libraries(dis_burn ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
-if(DIS_BUILD_TOOLS)
-  add_executable(dither_preview tools/dither_preview.cpp)
-  target_link_libraries(dither_preview dis_core)
-endif()
+add_executable(dither_preview tools/dither_preview.cpp)
+target_link_libraries(dither_preview dis_core)
 
 # ---- hardware-free tests (mock drive) ---------------------------------------------------
-if(DIS_BUILD_TESTS)
-  enable_testing()
-  add_executable(test_burn_logic tests/test_burn_logic.cpp)
-  target_link_libraries(test_burn_logic dis_burn)
-  add_executable(test_image_burn tests/test_image_burn.cpp)
-  target_link_libraries(test_image_burn dis_burn)
-  add_executable(test_gui_logic tests/test_gui_logic.cpp)
-  target_link_libraries(test_gui_logic dis_burn)
-
-  # test_image_burn needs a BMP argument, so it is driven by ctest only when one is supplied:
-  #   cmake -S . -B build -DDIS_TEST_IMAGE=path/to/image.bmp
-  add_test(NAME burn_logic COMMAND test_burn_logic)
-  add_test(NAME gui_logic  COMMAND test_gui_logic)
-  if(DIS_TEST_IMAGE)
-    add_test(NAME image_burn COMMAND test_image_burn ${DIS_TEST_IMAGE})
-  endif()
-endif()
+add_executable(test_burn_logic tests/test_burn_logic.cpp)
+target_link_libraries(test_burn_logic dis_burn)
+add_executable(test_image_burn tests/test_image_burn.cpp)
+target_link_libraries(test_image_burn dis_burn)
+add_executable(test_gui_logic tests/test_gui_logic.cpp)
+target_link_libraries(test_gui_logic dis_burn)
+add_executable(test_preview tests/test_preview.cpp)
+target_link_libraries(test_preview dis_burn)
+add_executable(disc_preview tools/disc_preview.cpp)
+target_link_libraries(disc_preview dis_burn)
 
 # ---- GUI (Windows only, needs third_party/imgui) -----------------------------------------
 if(WIN32)
   if(EXISTS ${IMGUI_DIR}/imgui.cpp AND EXISTS ${IMGUI_DIR}/imgui_impl_dx9.cpp AND EXISTS ${IMGUI_DIR}/imgui_impl_win32.cpp)
     add_executable(DiscImageStudio WIN32
-      src/gui/main_win.cpp src/gui/App.cpp src/gui/Dialogs_win.cpp
+      src/gui/main_win.cpp src/gui/App.cpp src/gui/Theme.cpp src/gui/Widgets.cpp src/gui/Dialogs_win.cpp
       ${IMGUI_DIR}/imgui.cpp ${IMGUI_DIR}/imgui_draw.cpp ${IMGUI_DIR}/imgui_tables.cpp
       ${IMGUI_DIR}/imgui_widgets.cpp ${IMGUI_DIR}/imgui_impl_dx9.cpp ${IMGUI_DIR}/imgui_impl_win32.cpp)
     target_include_directories(DiscImageStudio PRIVATE ${IMGUI_DIR} src/gui)
     target_compile_definitions(DiscImageStudio PRIVATE IMGUI_IMPL_WIN32_DISABLE_GAMEPAD)
-    target_link_libraries(DiscImageStudio dis_burn d3d9 comdlg32 user32 gdi32)
+    target_link_libraries(DiscImageStudio dis_burn d3d9 comdlg32 shell32 user32 gdi32)
     # single exe, must run elevated (SPTI writes need administrator rights)
     set_target_properties(DiscImageStudio PROPERTIES
       LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\"")
