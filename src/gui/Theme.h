@@ -4,7 +4,7 @@
 
 namespace ui {
 
-struct Fonts { ImFont* regular = 0; ImFont* bold = 0; ImFont* small = 0; };
+struct Fonts { ImFont* regular = 0; ImFont* bold = 0; ImFont* smallFont = 0; };
 extern Fonts fonts;
 
 void loadFonts();      // Segoe UI from C:\Windows\Fonts (falls back to ImGui's built-in font)

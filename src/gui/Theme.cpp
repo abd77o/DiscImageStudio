@@ -36,8 +36,8 @@ void loadFonts() {
     if (!fonts.regular) fonts.regular = io.Fonts->AddFontDefault();
     fonts.bold  = bold.empty() ? 0 : io.Fonts->AddFontFromFileTTF(bold.c_str(), 16.0f, &fc);
     if (!fonts.bold) fonts.bold = fonts.regular;
-    fonts.small = reg.empty() ? 0 : io.Fonts->AddFontFromFileTTF(reg.c_str(), 12.5f, &fc);
-    if (!fonts.small) fonts.small = fonts.regular;
+    fonts.smallFont = reg.empty() ? 0 : io.Fonts->AddFontFromFileTTF(reg.c_str(), 12.5f, &fc);
+    if (!fonts.smallFont) fonts.smallFont = fonts.regular;
 }
 
 void applyTheme() {

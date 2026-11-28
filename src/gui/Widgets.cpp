@@ -175,7 +175,7 @@ void progressBar(float f, ImVec2 size, const char* label) {
         dl->AddRectFilled(p, ImVec2(p.x + w, p.y + h), cAccent(), h * 0.5f);
     }
     if (label && label[0]) {
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         ImVec2 ts = ImGui::CalcTextSize(label);
         dl->AddText(ImVec2(p.x + (size.x - ts.x) * 0.5f, p.y + (h - ts.y) * 0.5f), IM_COL32(255, 255, 255, 255), label);
         ImGui::PopFont();

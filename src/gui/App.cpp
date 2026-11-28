@@ -207,7 +207,7 @@ void App::drawHeader(float W) {
     ImGui::TextUnformatted("DiscImageStudio");
     ImGui::PopFont();
     ImGui::SetCursorScreenPos(ImVec2(p.x + 42, p.y + 22));
-    ImGui::PushFont(fonts.small);
+    ImGui::PushFont(fonts.smallFont);
     ImGui::PushStyleColor(ImGuiCol_Text, cDim());
     ImGui::TextUnformatted("CD-R image burner");
     ImGui::PopStyleColor();
@@ -281,7 +281,7 @@ void App::drawImageCard(float W) {
         size_t slash = imagePath_.find_last_of("\\/");
         std::string name = slash == std::string::npos ? imagePath_ : imagePath_.substr(slash + 1);
         ImGui::TextUnformatted(ellipsize(name, inner).c_str());
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         ImGui::PushStyleColor(ImGuiCol_Text, cDim());
         ImGui::TextUnformatted(imageInfo_.c_str());
         ImGui::PopStyleColor();
@@ -290,7 +290,7 @@ void App::drawImageCard(float W) {
         ImGui::PushStyleColor(ImGuiCol_Text, cDim());
         ImGui::TextUnformatted("PNG, JPG or BMP");
         ImGui::PopStyleColor();
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         ImGui::PushStyleColor(ImGuiCol_Text, cDim());
         ImGui::TextUnformatted("or drop a file onto the disc");
         ImGui::PopStyleColor();
@@ -361,7 +361,7 @@ void App::drawRight(float W, float H) {
         chips.push_back("2 tones");
         if (cfg_.angleOffsetDeg != 0.0) { std::snprintf(chip, sizeof chip, "rot %.0f deg", cfg_.angleOffsetDeg); chips.push_back(chip); }
         if (cfg_.mirror) chips.push_back("mirrored");
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         for (size_t i = chips.size(); i-- > 0;) {
             ImVec2 ts = ImGui::CalcTextSize(chips[i].c_str());
             float w = ts.x + 18;
@@ -397,7 +397,7 @@ void App::drawRight(float W, float H) {
         ImGui::PushFont(fonts.bold);
         ImVec2 s1 = ImGui::CalcTextSize(l1);
         ImGui::PopFont();
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         ImVec2 s2 = ImGui::CalcTextSize(l2);
         ImGui::PopFont();
         float bw = std::max(s1.x, s2.x) + 32, bh = 52;
@@ -406,7 +406,7 @@ void App::drawRight(float W, float H) {
         ImGui::PushFont(fonts.bold);
         dl->AddText(ImVec2(ctr.x - s1.x * 0.5f, by + 8), cText(), l1);
         ImGui::PopFont();
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         dl->AddText(ImVec2(ctr.x - s2.x * 0.5f, by + 30), cDim(), l2);
         ImGui::PopFont();
     }
@@ -424,7 +424,7 @@ void App::drawRight(float W, float H) {
 
     // caption
     ImGui::SetCursorScreenPos(ImVec2(p0.x, p0.y + D + 4));
-    ImGui::PushFont(fonts.small);
+    ImGui::PushFont(fonts.smallFont);
     ImGui::PushStyleColor(ImGuiCol_Text, cDim());
     const char* cap = "Burned ring 25-58 mm. The centre stays blank. Preview is a simulation.";
     ImVec2 cs = ImGui::CalcTextSize(cap);
@@ -445,7 +445,7 @@ void App::drawRight(float W, float H) {
     for (int i = 0; i < 3; ++i) {
         ImVec2 q(p0.x + i * (colW + 12), p0.y + D + captionH + 6);
         ImGui::SetCursorScreenPos(q);
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         ImGui::PushStyleColor(ImGuiCol_Text, cDim());
         ImGui::TextUnformatted(sl[i].label);
         ImGui::PopStyleColor();
@@ -503,7 +503,7 @@ void App::drawBottomBar(float W) {
         dl->AddRectFilled(ImVec2(x, midY - 14), ImVec2(x + 140, midY + 14), cField(), 14.f);
         dl->AddCircleFilled(ImVec2(x + 16, midY), 5.f, pc, 12);
         char pb[48]; std::snprintf(pb, sizeof pb, "Buffer %.0f%% %s", st.fill * 100.0, sname);
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         dl->AddText(ImVec2(x + 28, midY - 8), cText(), pb);
         ImGui::PopFont();
         ImGui::SetCursorScreenPos(ImVec2(x + 150, midY - 14));
@@ -627,7 +627,7 @@ void App::drawCalibrationModal(float w, float h) {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(20, 18));
     if (ImGui::BeginPopupModal("Calibration", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
         const bool running = job_.running();
-        ImGui::PushFont(fonts.small);
+        ImGui::PushFont(fonts.smallFont);
         ImGui::PushStyleColor(ImGuiCol_Text, cDim());
         ImGui::PushTextWrapPos(540.f);
         ImGui::TextUnformatted("1. Insert a spare blank CD-R and burn the ladder: 16 candidate byte patterns, one ring each, "
@@ -649,7 +649,7 @@ void App::drawCalibrationModal(float w, float h) {
         DiscGeometry g;
         ImGui::TextUnformatted("Band map (approx. radius from the centre)");
         if (ImGui::BeginChild("##bands", ImVec2(540, 118), true)) {
-            ImGui::PushFont(fonts.small);
+            ImGui::PushFont(fonts.smallFont);
             for (size_t i = 0; i < ladder.size(); ++i) {
                 double r0 = g.radiusAtLength((double)i * cfg_.bandSectors * g.sectorLengthMm);
                 double r1 = g.radiusAtLength((double)(i + 1) * cfg_.bandSectors * g.sectorLengthMm);
